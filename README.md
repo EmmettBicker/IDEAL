@@ -2,7 +2,8 @@
 ## IDEA Language model
 IDEAL is a language translation model that retokenizes GPT2 tokens into it's own tokenization space. It consists of a bidirectional encoder layer that takes in GPT2 Tokens, and for every token it predicts a token in it's own vocabulary with its own embeddings. It does this with a gumbel softmax. Then, these tokens are passed through an embedding layer, and a standard transformer decoder block follows. 
 
-![image](https://github.com/user-attachments/assets/bad57da5-389b-4b7c-867e-f99ea7f932e4)
+![image](https://github.com/user-attachments/assets/f744ab9d-8899-48fc-b1c9-60ab1ea32b84)
+
 
 ## Results
 
