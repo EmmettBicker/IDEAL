@@ -15,9 +15,5 @@ IDEAL is a language translation model that converts GPT2 tokens into its own tok
 
 
 ## Results
-
-This is a test with an idea vocabulary size of 1024.  
-![image](https://github.com/user-attachments/assets/dfcdf1ab-d5fe-4d8c-9280-f4b8f8de467c)
-
-
+My previous test was an artifact, but it's still promising! more tests to come.
 Many more updates to come!
