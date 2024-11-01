@@ -15,5 +15,5 @@ IDEAL is a language translation model that converts GPT2 tokens into its own tok
 
 
 ## Results
-My previous test was an artifact, but it's still promising! more tests to come.
+My previous test contained a bug, but it's still promising! more tests to come.
 Many more updates to come!
