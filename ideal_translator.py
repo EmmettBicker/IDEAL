@@ -6,6 +6,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from transformers import GPT2Tokenizer
+import math
+import lfq
+
 
 class IDEALTranslator(nn.Module):
     def __init__(
@@ -18,6 +21,8 @@ class IDEALTranslator(nn.Module):
         dim_feedforward=768,
         num_encoder_layers=6,
         num_decoder_layers=6,
+        use_binary_latent_tokenization=True,
+        hard=True
 
     ):
 
@@ -33,8 +38,18 @@ class IDEALTranslator(nn.Module):
             ),
             num_layers=num_encoder_layers
         )
-
-        self.to_idea_tokens = nn.Linear(hidden_size, idea_token_vocab_size) # Currently it's one to one
+        
+        self.use_binary_latent_tokenization = use_binary_latent_tokenization
+        self.idea_token_vocab_size = idea_token_vocab_size
+        self.hard = hard
+        
+        if use_binary_latent_tokenization:
+            assert (idea_token_vocab_size & (idea_token_vocab_size-1) == 0) and idea_token_vocab_size != 0, "If using binary latents, idea_token_vocab_size must be a power of 2"
+            self.latent_dim = int(math.log2(self.idea_token_vocab_size))
+            self.to_idea_binary_latents = nn.Linear(hidden_size, self.latent_dim) # Currently it's one to one
+        else:
+            self.to_idea_tokens = nn.Linear(hidden_size, idea_token_vocab_size) # Currently it's one to one
+        
 
         self.decoder = nn.TransformerDecoder(
             nn.TransformerDecoderLayer(
@@ -59,6 +74,8 @@ class IDEALTranslator(nn.Module):
         
         
     def forward(self, source_tokens, padding_mask, target_tokens=None, tgt_padding_mask=None):
+        B, L = source_tokens.size(0), source_tokens.size(1)
+        
         src_embeddings = self.gpt2_embeddings(source_tokens)
         position_indices = torch.arange(0, source_tokens.size(1), device=source_tokens.device).unsqueeze(0).expand_as(source_tokens)
         pos_embeddings = self.pos_encoding(position_indices)
@@ -68,12 +85,26 @@ class IDEALTranslator(nn.Module):
 
 
         embeddings = self.encoder(src_embeddings, src_key_padding_mask=padding_mask)
-        idea_logits = self.to_idea_tokens(embeddings)
+        
 
-        self.tau *= 0.999
-        idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
-        idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
-        idea_embeddings = idea_embeddings + pos_embeddings
+        if self.use_binary_latent_tokenization:
+            
+            idea_latents = self.to_idea_binary_latents(embeddings) # Becomes (batch x seq_len x log2(vocab_size) )                
+            continous_probs = lfq.binary_latents_to_token_probs(idea_latents) # I'll have to disable this in eval at some point
+            continous_embeddings = torch.matmul(continous_probs, self.idea_embeddings.weight)
+            
+            if self.hard:
+                idea_tokens = lfq.binary_latents_to_hard_tokens(idea_latents, latent_dim=self.latent_dim)
+                discrete_embeddings = self.idea_embeddings(idea_tokens)
+                idea_embeddings = continous_embeddings + (discrete_embeddings - continous_embeddings).detach()
+            else:
+                idea_embeddings = continous_embeddings
+        else:
+            idea_logits = self.to_idea_tokens(embeddings)
+            self.tau *= 0.999
+            idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
+            idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
+            idea_embeddings = idea_embeddings + pos_embeddings
 
        
         tgt_embedded = self.gpt2_embeddings(target_tokens)
@@ -104,6 +135,8 @@ class IDEALTranslator(nn.Module):
             )
 
         return output_logits, idea_tokens
+    
+    
         
     def _generate(self, idea_embeddings, padding_mask, max_length=50):
         # Start with a batch of the initial tokens (e.g., [BOS] token)
