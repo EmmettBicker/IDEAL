@@ -14,7 +14,7 @@ def binary_latents_to_hard_tokens(idea_latents, latent_dim):
     
 def binary_latents_to_token_probs(idea_latents):
         digit_probs = F.sigmoid(idea_latents)
-        
+        # needs a loss term to push outputs closer to 0 and 1
         device = digit_probs.device
         B, L, num_digits = digit_probs.shape
         vocab_size = 2**num_digits

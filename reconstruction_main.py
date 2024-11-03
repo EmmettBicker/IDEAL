@@ -5,6 +5,7 @@ except:
    from datasets import load_dataset
 
 from ideal_translator import IDEALTranslator, IDEALTranslatorV2, StandardTransformer
+# from old_ideal_translator import IDEALTranslator as OldIDEALTranslator
 from transformers import GPT2Tokenizer
 from torch.utils.data import DataLoader, Dataset
 import torch
@@ -109,37 +110,33 @@ except:
 layers=1
 hidden_size = 128
 models = {
-    # 'IDEAL-1': IDEALTranslator(tokenizer, idea_token_vocab_size=1, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size).to(device),
-    # 'IDEALv2-1': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=1, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_text_encoder_layers=layers, num_idea_encoder_layers=layers, hidden_size=hidden_size).to(device),
-    # 'IDEAL2': IDEALTranslator(tokenizer, idea_token_vocab_size=2, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL4': IDEALTranslator(tokenizer, idea_token_vocab_size=4, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL-8': IDEALTranslator(tokenizer, idea_token_vocab_size=8, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=4, num_encoder_layers=4, hidden_size=256, dim_feedforward=256).to(device),
-    # 'IDEALv2-8': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=8, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=4, num_text_encoder_layers=2, num_idea_encoder_layers=2, hidden_size=256, dim_feedforward=256).to(device),
-    # 'IDEAL16': IDEALTranslator(tokenizer, idea_token_vocab_size=16,  vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL32': IDEALTranslator(tokenizer, idea_token_vocab_size=32, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL-64': IDEALTranslator(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, use_binary_latent_tokenization=False).to(device),
-    'IDEAL-bin64': IDEALTranslator(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, use_binary_latent_tokenization=True).to(device),
-    # 'IDEALv2-64': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_text_encoder_layers=layers, num_idea_encoder_layers=layers, hidden_size=hidden_size).to(device),
-    # 'IDEAL128': IDEALTranslator(tokenizer, idea_token_vocab_size=128, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEA256': IDEALTranslator(tokenizer, idea_token_vocab_size=256, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL512': IDEALTranslator(tokenizer, idea_token_vocab_size=512, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL1024': IDEALTranslator(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL2048': IDEALTranslator(tokenizer, idea_token_vocab_size=2048, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL4096': IDEALTranslator(tokenizer, idea_token_vocab_size=4096, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL8192': IDEALTranslator(tokenizer, idea_token_vocab_size=8192, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=1, num_encoder_layers=1, hidden_size=128).to(device),
-    # 'IDEAL-512': IDEALTranslator(tokenizer, idea_token_vocab_size=512, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=4, num_encoder_layers=4, hidden_size=256, dim_feedforward=256).to(device),
-    # 'IDEALv2-512': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=512, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=4, num_text_encoder_layers=2, num_idea_encoder_layers=2, hidden_size=256, dim_feedforward=256).to(device),
-    # 'IDEAL-1024': IDEALTranslator(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, use_binary_latent_tokenization=False).to(device),
-    # 'IDEAL-bin1024': IDEALTranslator(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, use_binary_latent_tokenization=True).to(device),
-    
-    # # 'IDEALv2-1024': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_text_encoder_layers=layers, num_idea_encoder_layers=layers, hidden_size=hidden_size).to(device),
+    'IDEAL-lfq2': IDEALTranslator(tokenizer, idea_token_vocab_size=2, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=False).to(device),
+    # 'IDEAL-hard1': IDEALTranslator(tokenizer, idea_token_vocab_size=1, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    #'IDEALv2-1': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=1, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    # 'IDEALv2-4': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=4, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+    # 'IDEAL-4': IDEALTranslator(tokenizer, idea_token_vocab_size=4, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+    'IDEAL-lfq16': IDEALTranslator(tokenizer, idea_token_vocab_size=16, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=False).to(device),
+    # 'IDEAL-hard16': IDEALTranslator(tokenizer, idea_token_vocab_size=16, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    # 'IDEALv2-16': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=16, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    'IDEAL-lfq64': IDEALTranslator(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=False).to(device),
+    # 'IDEAL-hard64': IDEALTranslator(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    #'IDEALv2-64': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=64, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+
+    # 'IDEALv2-256': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=256, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+    # 'IDEAL-256': IDEALTranslator(tokenizer, idea_token_vocab_size=256, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+    'IDEAL-lfq1024': IDEALTranslator(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=False).to(device),
+    # 'IDEAL-hard1024': IDEALTranslator(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
+    #'IDEALv2-1024': IDEALTranslatorV2(tokenizer, idea_token_vocab_size=1024, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_idea_encoder_layers=layers, num_text_encoder_layers=layers, hidden_size=hidden_size, hard=True).to(device),
 
     'Standard': StandardTransformer(tokenizer, vocab_size=vocab_size, max_sequence_length=512, num_decoder_layers=layers, num_encoder_layers=layers, hidden_size=hidden_size).to(device)
 
 
     }
-
-models["IDEAL-bin64"].load_state_dict(torch.load("IDEAL-bin64.pth", weights_only=True))
 
 # Initialize optimizers in a dictionary
 optimizers = {
@@ -243,7 +240,7 @@ def train_epoch(model, optimizer, name):
 
 
 
-       output_logits, idea_tokens = model(source_tokens, padding_mask, target_tokens, tgt_padding_mask)
+       output_logits, aux_loss = model(source_tokens, padding_mask, target_tokens, tgt_padding_mask)
 
        translation_loss = F.cross_entropy(
            output_logits.view(-1, output_logits.size(-1)),
@@ -252,15 +249,24 @@ def train_epoch(model, optimizer, name):
            reduction='mean'
        )
 
+       og_translation_loss = translation_loss
+       if name != "Standard":
+          translation_loss += aux_loss
+          print(aux_loss)
+
+
        total_loss += translation_loss.item()
+
+      
 
        # Track loss every N batches
        if batch_idx % 50 == 0:
         step_losses[name].append(translation_loss.item())
 
        if batch_idx % 200 == 0:
-        print(f'{name} Batch {batch_idx}, Loss: {translation_loss.item():.4f}')
-
+        print(f'{name} Batch {batch_idx}, Total Loss: {translation_loss.item():.4f}, Loss: {og_translation_loss.item():.4f}')
+        if name != "Standard":
+          print(f"Per sample entropy: {aux_loss.per_sample_entropy} | Batch entropy: {aux_loss.batch_entropy} | Commitment: {aux_loss.commitment}")
 
        translation_loss.backward()
        optimizer.step()
@@ -292,6 +298,11 @@ def plot_losses():
 
     plt.tight_layout()
     plt.show()
+
+
+# Training loop
+num_epochs = 70
+best_val_loss = float('inf')
 
 
 # Training loop
@@ -333,3 +344,5 @@ for epoch in range(num_epochs):
                 f'{name}_val_loss': val_losses[name][-1],
             })
         torch.save(checkpoint, 'best_model.pt')
+
+# %%

@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from transformers import GPT2Tokenizer
 import math
-import lfq
+from vector_quantize_pytorch import LFQ
 
 
 class IDEALTranslator(nn.Module):
@@ -21,9 +21,6 @@ class IDEALTranslator(nn.Module):
         dim_feedforward=768,
         num_encoder_layers=6,
         num_decoder_layers=6,
-        use_binary_latent_tokenization=True,
-        hard=True
-
     ):
 
         super().__init__()
@@ -39,16 +36,26 @@ class IDEALTranslator(nn.Module):
             num_layers=num_encoder_layers
         )
         
-        self.use_binary_latent_tokenization = use_binary_latent_tokenization
+        assert (idea_token_vocab_size & (idea_token_vocab_size-1) == 0) and idea_token_vocab_size != 0, "idea_token_vocab_size must be a power of 2"
+
         self.idea_token_vocab_size = idea_token_vocab_size
-        self.hard = hard
+        self.latent_dim = int(math.log2(self.idea_token_vocab_size))
         
-        if use_binary_latent_tokenization:
-            assert (idea_token_vocab_size & (idea_token_vocab_size-1) == 0) and idea_token_vocab_size != 0, "If using binary latents, idea_token_vocab_size must be a power of 2"
-            self.latent_dim = int(math.log2(self.idea_token_vocab_size))
-            self.to_idea_binary_latents = nn.Linear(hidden_size, self.latent_dim) # Currently it's one to one
-        else:
-            self.to_idea_tokens = nn.Linear(hidden_size, idea_token_vocab_size) # Currently it's one to one
+        self.to_idea_binary_latents = nn.Linear(hidden_size, self.latent_dim) # Currently it's one to one
+        
+        
+        
+        self.quantizer = LFQ(
+                dim = self.latent_dim,
+                codebook_size = idea_token_vocab_size,
+                num_codebooks = 1, # hyperparameter later
+                entropy_loss_weight = 0.1, # hyperparameter later
+                commitment_loss_weight = 1, # hyperparameter later
+                diversity_gamma = 2.5, # hyperparameter later
+                soft_clamp_input_value = 10, # hyperparameter later
+                spherical = True # hyperparameter later
+            )
+
         
 
         self.decoder = nn.TransformerDecoder(
@@ -67,7 +74,7 @@ class IDEALTranslator(nn.Module):
 
         # Token embeddings
         self.gpt2_embeddings = nn.Embedding(vocab_size+1, hidden_size) # +1 for bos
-        self.idea_embeddings = nn.Embedding(idea_token_vocab_size, hidden_size)
+        self.idea_embeddings = nn.Embedding(self.latent_dim, hidden_size)
         self.pos_encoding = nn.Embedding(max_sequence_length+1, hidden_size) # Max sequence length plus one for bos token
 
         self.tau = 0.5
@@ -82,45 +89,24 @@ class IDEALTranslator(nn.Module):
 
         # Add positional encoding to source token embeddings
         src_embeddings = src_embeddings + pos_embeddings
-
-
+        
+        # ENCODER
         embeddings = self.encoder(src_embeddings, src_key_padding_mask=padding_mask)
         
-
-        if self.use_binary_latent_tokenization:
-            
-            idea_latents = self.to_idea_binary_latents(embeddings) # Becomes (batch x seq_len x log2(vocab_size) )                
-            continous_probs = lfq.binary_latents_to_token_probs(idea_latents) # I'll have to disable this in eval at some point
-            continous_embeddings = torch.matmul(continous_probs, self.idea_embeddings.weight)
-            
-            if self.hard:
-                idea_tokens = lfq.binary_latents_to_hard_tokens(idea_latents, latent_dim=self.latent_dim)
-                discrete_embeddings = self.idea_embeddings(idea_tokens)
-                idea_embeddings = continous_embeddings + (discrete_embeddings - continous_embeddings).detach()
-            else:
-                idea_embeddings = continous_embeddings
-        else:
-            idea_logits = self.to_idea_tokens(embeddings)
-            self.tau *= 0.999
-            idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
-            idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
-            idea_embeddings = idea_embeddings + pos_embeddings
-
+        # LFQ
+        idea_embeddings, aux_losses = self.get_idea_embeddings(embeddings)
        
+       # Idea positional encodings
         tgt_embedded = self.gpt2_embeddings(target_tokens)
         position_indices = torch.arange(0, tgt_embedded.size(1), device=source_tokens.device).unsqueeze(0).expand_as(target_tokens)
         pos_embeddings = self.pos_encoding(position_indices)
-
         tgt_embedded = tgt_embedded + pos_embeddings
 
-        # Generate causal mask
-        tgt_mask = self.generate_square_subsequent_mask(target_tokens.size(1)).to(tgt_embedded.device)
-
-        # Omit tgt_key_padding_mask
+        # DECODER
         decoder_output = self.decoder(
             tgt_embedded,
             idea_embeddings,
-            tgt_mask=tgt_mask,
+            tgt_mask=self.generate_square_subsequent_mask(target_tokens.size(1)).to(tgt_embedded.device),
             memory_key_padding_mask=padding_mask,
             tgt_key_padding_mask=tgt_padding_mask
         )
@@ -134,10 +120,18 @@ class IDEALTranslator(nn.Module):
                 self.tokenizer.decode(target_tokens[0][~tgt_padding_mask[0]])
             )
 
-        return output_logits, idea_tokens
+        return output_logits, aux_losses
     
-    
+    def get_idea_embeddings(self, embeddings):
+        idea_latents = self.to_idea_binary_latents(embeddings)  # Binary latents
         
+        # Quantize using LFQ
+        quantized_output, _, aux_loss = self.quantizer(idea_latents)
+        # Project quantized output into continuous embedding space
+        continous_embeddings = torch.matmul(quantized_output, self.idea_embeddings.weight)
+        
+        return continous_embeddings, aux_loss
+    
     def _generate(self, idea_embeddings, padding_mask, max_length=50):
         # Start with a batch of the initial tokens (e.g., [BOS] token)
         batch_size = idea_embeddings.size(0)
@@ -175,24 +169,17 @@ class IDEALTranslator(nn.Module):
 
         # Add positional encoding to source token embeddings
         src_embeddings = src_embeddings + pos_embeddings
-
-
         embeddings = self.encoder(src_embeddings, src_key_padding_mask=padding_mask)
-        idea_logits = self.to_idea_tokens(embeddings)
-
-        self.tau *= 0.999
-        idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
-        idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
-        idea_embeddings = idea_embeddings + pos_embeddings
+        
+        idea_embeddings, _ = self.get_idea_embeddings(embeddings)
         
         return self._generate(idea_embeddings, padding_mask)
-
-    
 
     @staticmethod
     def generate_square_subsequent_mask(sz):
         mask = torch.triu(torch.ones(sz, sz), diagonal=1).bool()
         return mask
+
 
 class IDEALTranslatorV2(nn.Module):
     def __init__(
@@ -206,10 +193,11 @@ class IDEALTranslatorV2(nn.Module):
         num_text_encoder_layers=3,
         num_idea_encoder_layers=3,
         num_decoder_layers=6,
-
     ):
 
         super().__init__()
+
+        assert (idea_token_vocab_size & (idea_token_vocab_size-1) == 0) and idea_token_vocab_size != 0, "idea_token_vocab_size must be a power of 2"
 
         # Model 1: GPT2 tokens to idea tokens
         self.text_encoder = nn.TransformerEncoder(
@@ -234,6 +222,29 @@ class IDEALTranslatorV2(nn.Module):
             num_layers=num_idea_encoder_layers
         )
 
+        
+        self.idea_token_vocab_size = idea_token_vocab_size
+        
+        
+        self.latent_dim = int(math.log2(self.idea_token_vocab_size))
+        
+        self.to_idea_binary_latents = nn.Linear(hidden_size, self.latent_dim) # Currently it's one to one
+        
+        
+        
+        self.quantizer = LFQ(
+                dim = self.latent_dim,
+                codebook_size = idea_token_vocab_size,
+                num_codebooks = 1, # hyperparameter later
+                entropy_loss_weight = 0.1, # hyperparameter later
+                commitment_loss_weight = 1, # hyperparameter later
+                diversity_gamma = 2.5, # hyperparameter later
+                soft_clamp_input_value = 10, # hyperparameter later
+                spherical = True # hyperparameter later
+            )
+
+        
+
         self.decoder = nn.TransformerDecoder(
             nn.TransformerDecoderLayer(
                 d_model=hidden_size,
@@ -250,45 +261,41 @@ class IDEALTranslatorV2(nn.Module):
 
         # Token embeddings
         self.gpt2_embeddings = nn.Embedding(vocab_size+1, hidden_size) # +1 for bos
-        self.idea_embeddings = nn.Embedding(idea_token_vocab_size, hidden_size)
+        self.idea_embeddings = nn.Embedding(self.latent_dim, hidden_size)
         self.pos_encoding = nn.Embedding(max_sequence_length+1, hidden_size) # Max sequence length plus one for bos token
 
-        self.tau = 0.5
         
         
     def forward(self, source_tokens, padding_mask, target_tokens=None, tgt_padding_mask=None):
+        B, L = source_tokens.size(0), source_tokens.size(1)
+        
         src_embeddings = self.gpt2_embeddings(source_tokens)
         position_indices = torch.arange(0, source_tokens.size(1), device=source_tokens.device).unsqueeze(0).expand_as(source_tokens)
         pos_embeddings = self.pos_encoding(position_indices)
 
         # Add positional encoding to source token embeddings
         src_embeddings = src_embeddings + pos_embeddings
-
-
-        embeddings = self.text_encoder(src_embeddings, src_key_padding_mask=padding_mask)
-        idea_logits = self.to_idea_tokens(embeddings)
-
-        self.tau *= 0.999
-        idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
-        idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
-        idea_embeddings = idea_embeddings + pos_embeddings
         
+        # ENCODER
+        embeddings = self.text_encoder(src_embeddings, src_key_padding_mask=padding_mask)
+        
+        # LFQ
+        idea_embeddings, aux_loss = self.get_idea_embeddings(embeddings)
+        
+        # ENCODER 2
         idea_embeddings = self.idea_encoder(idea_embeddings, src_key_padding_mask=padding_mask)
        
+       # Idea positional encodings
         tgt_embedded = self.gpt2_embeddings(target_tokens)
         position_indices = torch.arange(0, tgt_embedded.size(1), device=source_tokens.device).unsqueeze(0).expand_as(target_tokens)
         pos_embeddings = self.pos_encoding(position_indices)
-
         tgt_embedded = tgt_embedded + pos_embeddings
 
-        # Generate causal mask
-        tgt_mask = self.generate_square_subsequent_mask(target_tokens.size(1)).to(tgt_embedded.device)
-
-        # Omit tgt_key_padding_mask
+        # DECODER
         decoder_output = self.decoder(
             tgt_embedded,
             idea_embeddings,
-            tgt_mask=tgt_mask,
+            tgt_mask=self.generate_square_subsequent_mask(target_tokens.size(1)).to(tgt_embedded.device),
             memory_key_padding_mask=padding_mask,
             tgt_key_padding_mask=tgt_padding_mask
         )
@@ -302,8 +309,20 @@ class IDEALTranslatorV2(nn.Module):
                 self.tokenizer.decode(target_tokens[0][~tgt_padding_mask[0]])
             )
 
-        return output_logits, idea_tokens
+        return output_logits, aux_loss
+    
+    def get_idea_embeddings(self, embeddings):
+        idea_latents = self.to_idea_binary_latents(embeddings)  # Binary latents
         
+        # Quantize using LFQ
+        quantized_output, _, aux_loss = self.quantizer(idea_latents)
+        # Project quantized output into continuous embedding space
+        continous_embeddings = torch.matmul(quantized_output, self.idea_embeddings.weight)
+        
+        return continous_embeddings, aux_loss
+
+
+
     def _generate(self, idea_embeddings, padding_mask, max_length=50):
         # Start with a batch of the initial tokens (e.g., [BOS] token)
         batch_size = idea_embeddings.size(0)
@@ -341,26 +360,23 @@ class IDEALTranslatorV2(nn.Module):
 
         # Add positional encoding to source token embeddings
         src_embeddings = src_embeddings + pos_embeddings
-
-
         embeddings = self.text_encoder(src_embeddings, src_key_padding_mask=padding_mask)
-        idea_logits = self.to_idea_tokens(embeddings)
-
-        self.tau *= 0.999
-        idea_tokens = F.gumbel_softmax(idea_logits, tau=self.tau, hard=True, dim=-1)
-        idea_embeddings = torch.matmul(idea_tokens, self.idea_embeddings.weight)
         
+        # LFQ
+        idea_embeddings, _ = self.get_idea_embeddings(embeddings)
+        
+        # ENCODER 2
         idea_embeddings = self.idea_encoder(idea_embeddings, src_key_padding_mask=padding_mask)
-        idea_embeddings = idea_embeddings + pos_embeddings
+        
         
         return self._generate(idea_embeddings, padding_mask)
-
-    
 
     @staticmethod
     def generate_square_subsequent_mask(sz):
         mask = torch.triu(torch.ones(sz, sz), diagonal=1).bool()
         return mask
+
+
 
 
 class StandardTransformer(nn.Module):
