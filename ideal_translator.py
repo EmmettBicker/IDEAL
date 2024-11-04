@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from transformers import GPT2Tokenizer
 import math
 from vector_quantize_pytorch import LFQ
-
+from recurrent_lfq import RecurrentLFQ
 
 class IDEALTranslator(nn.Module):
     def __init__(
@@ -21,6 +21,7 @@ class IDEALTranslator(nn.Module):
         dim_feedforward=768,
         num_encoder_layers=6,
         num_decoder_layers=6,
+        use_r_lfq=True
     ):
 
         super().__init__()
@@ -43,18 +44,30 @@ class IDEALTranslator(nn.Module):
         
         self.to_idea_binary_latents = nn.Linear(hidden_size, self.latent_dim) # Currently it's one to one
         
-        
-        
-        self.quantizer = LFQ(
-                dim = self.latent_dim,
-                codebook_size = idea_token_vocab_size,
-                num_codebooks = 1, # hyperparameter later
-                entropy_loss_weight = 0.1, # hyperparameter later
-                commitment_loss_weight = 1, # hyperparameter later
-                diversity_gamma = 2.5, # hyperparameter later
-                soft_clamp_input_value = 10, # hyperparameter later
-                spherical = True # hyperparameter later
-            )
+        self.use_r_lfq = use_r_lfq
+        if use_r_lfq:
+            self.quantizer = RecurrentLFQ(
+                    d_embed=hidden_size,
+                    dim = self.latent_dim,
+                    codebook_size = idea_token_vocab_size,
+                    num_codebooks = 1, # hyperparameter later
+                    entropy_loss_weight = 0.1, # hyperparameter later
+                    commitment_loss_weight = 1, # hyperparameter later
+                    diversity_gamma = 2.5, # hyperparameter later
+                    soft_clamp_input_value = 10, # hyperparameter later
+                    spherical = True # hyperparameter later
+                )
+        else:
+            self.quantizer = LFQ(
+                    dim = self.latent_dim,
+                    codebook_size = idea_token_vocab_size,
+                    num_codebooks = 1, # hyperparameter later
+                    entropy_loss_weight = 0.1, # hyperparameter later
+                    commitment_loss_weight = 1, # hyperparameter later
+                    diversity_gamma = 2.5, # hyperparameter later
+                    soft_clamp_input_value = 10, # hyperparameter later
+                    spherical = True # hyperparameter later
+                )
 
         
 
@@ -123,10 +136,12 @@ class IDEALTranslator(nn.Module):
         return output_logits, aux_losses
     
     def get_idea_embeddings(self, embeddings):
-        idea_latents = self.to_idea_binary_latents(embeddings)  # Binary latents
-        
-        # Quantize using LFQ
-        quantized_output, _, aux_loss = self.quantizer(idea_latents)
+        if self.use_r_lfq:
+            quantized_output, _, aux_loss = self.quantizer(embeddings)
+        else:
+            idea_latents = self.to_idea_binary_latents(embeddings)  # Binary latents
+            # Quantize using LFQ
+            quantized_output, _, aux_loss = self.quantizer(idea_latents)
         # Project quantized output into continuous embedding space
         continous_embeddings = torch.matmul(quantized_output, self.idea_embeddings.weight)
         
