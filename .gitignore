@@ -1,5 +1,9 @@
-IDEAL_fr_to_en.pth
-best_model.pt
-scratch.ipynb
-IDEAL-bin64.pt
-IDEAL-bin64.pth
+# Dev
+.vscode
+
+# Pytest cache
+.pytest_cache
+
+# Pycache
+__pycache__
+**/__pycache__

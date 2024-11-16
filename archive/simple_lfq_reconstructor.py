@@ -1,11 +1,13 @@
 import torch
 import torch.nn as nn
-from vector_quantize_pytorch import LFQ
+from vector_quantize_pytorch import LFQ  # type: ignore
 
 
 class SimpleReconstructor(nn.Module):
-    def __init__(self, extern_vocab_size, hidden_size=128, idea_token_vocab_size=16):
-        super().__init__()
+    def __init__(self, extern_vocab_size: int,
+                 hidden_size: int = 128,
+                 idea_token_vocab_size: int = 16):
+        super().__init__()  # type: ignore
         self.quantizer = LFQ(
             dim=hidden_size,
             codebook_size=idea_token_vocab_size,
@@ -19,7 +21,7 @@ class SimpleReconstructor(nn.Module):
         self.out_proj = nn.Linear(hidden_size, extern_vocab_size).to("cuda")
         self.embed = nn.Embedding(extern_vocab_size, hidden_size)
 
-    def forward(self, tokens):
+    def forward(self, tokens: torch.Tensor):
         embeddings = self.embed(tokens)
         # Get loss breakdown
         #    quantized, indices, aux_loss = self.quantizer(embeddings)
