@@ -5,7 +5,7 @@ except Exception:
 
 import typing
 from typing import Dict, TypedDict, cast
-from utils.tokenizer import CharTokenizer, GPT2Tokenizer, Encoding
+from src.utils.tokenizer import CharTokenizer, GPT2Tokenizer, Encoding
 
 import matplotlib.pyplot as plt
 import torch
@@ -82,8 +82,8 @@ train_dataset = TranslationDataset(base_train_dataset)
 val_dataset = TranslationDataset(base_val_dataset)
 
 # Create both dataloaders
-train_loader = DataLoader(train_dataset, batch_size=480, shuffle=True)
-val_loader = DataLoader(val_dataset, batch_size=480, shuffle=False)
+train_loader = DataLoader(train_dataset, batch_size=48, shuffle=True)
+val_loader = DataLoader(val_dataset, batch_size=48, shuffle=False)
 
 if isinstance(tokenizer, GPT2Tokenizer):
     vocab_size = len(tokenizer)

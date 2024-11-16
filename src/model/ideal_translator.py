@@ -1,11 +1,11 @@
 import math
-import random
+# import random
 from abc import abstractmethod
 
 import torch
 import torch.nn as nn
 from vector_quantize_pytorch import LFQ  # type: ignore
-from utils.tokenizer import ITokenizer
+from src.utils.tokenizer import ITokenizer
 
 
 class ITranslator(nn.Module):
@@ -15,7 +15,7 @@ class ITranslator(nn.Module):
                  padding_mask: torch.Tensor,
                  target_tokens: torch.Tensor,
                  tgt_padding_mask: torch.Tensor
-                 ) -> tuple[torch.Tensor, torch.Tensor]:
+                 ) -> tuple[torch.Tensor, torch.Tensor | None]:
         raise NotImplementedError("Abstract Method")
 
 
@@ -120,7 +120,7 @@ class IDEALTranslator(ITranslator, nn.Module):
         src_embeddings = src_embeddings + pos_embeddings
 
         # ENCODER
-        embeddings = self.encoder(
+        embeddings = self.text_encoder(
             src_embeddings,
             src_key_padding_mask=padding_mask
         )
@@ -157,7 +157,7 @@ class IDEALTranslator(ITranslator, nn.Module):
 
         output_logits = self.project_return(decoder_output)
 
-        if random.random() > 0.995:
+        if False:
             print(
                 self.tokenizer.decode(  # type: ignore
                     source_tokens[0][~padding_mask[0]]),
@@ -171,6 +171,19 @@ class IDEALTranslator(ITranslator, nn.Module):
             )
 
         return output_logits, aux_losses
+
+    def __call__(self,
+                 source_tokens: torch.Tensor,
+                 padding_mask: torch.Tensor,
+                 target_tokens: torch.Tensor,
+                 tgt_padding_mask: torch.Tensor
+                 ) -> tuple[torch.Tensor, torch.Tensor]:
+        return self.forward(
+            source_tokens,
+            padding_mask,
+            target_tokens,
+            tgt_padding_mask
+        )
 
     def get_idea_embeddings(self,
                             embeddings: torch.Tensor
@@ -250,7 +263,7 @@ class StandardTransformer(ITranslator, nn.Module):
         padding_mask: torch.Tensor,
         target_tokens: torch.Tensor,
         tgt_padding_mask: torch.Tensor
-    ):
+    ) -> tuple[torch.Tensor, torch.Tensor | None]:
         src_embeddings = self.gpt2_embeddings(source_tokens)
         position_indices = (
             torch.arange(0, source_tokens.size(1), device=source_tokens.device)
@@ -292,7 +305,7 @@ class StandardTransformer(ITranslator, nn.Module):
 
         output_logits = self.to_gpt2(decoder_output)
 
-        if random.random() > 0.995:
+        if False:  # random.random() > 0.995:
             print(
                 self.tokenizer.decode(  # type: ignore
                     source_tokens[0][~padding_mask[0]]),
@@ -306,6 +319,19 @@ class StandardTransformer(ITranslator, nn.Module):
             )
 
         return output_logits, None
+
+    def __call__(self,
+                 source_tokens: torch.Tensor,
+                 padding_mask: torch.Tensor,
+                 target_tokens: torch.Tensor,
+                 tgt_padding_mask: torch.Tensor
+                 ) -> tuple[torch.Tensor, torch.Tensor | None]:
+        return self.forward(
+            source_tokens,
+            padding_mask,
+            target_tokens,
+            tgt_padding_mask
+        )
 
     @staticmethod
     def generate_square_subsequent_mask(sz: int) -> torch.Tensor:
