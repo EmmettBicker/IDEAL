@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "ideal"
+version = "0.1.0"
+description = "Ideal"
+authors = ["emmettbicker <emmettbicker@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = { version = "^2.5.1+cu124", source = "pytorch" }
+vector-quantize-pytorch = "^1.20.9"
+datasets = "^3.1.0"
+transformers = "^4.46.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+mypy = "^1.13.0"
+black = "^24.10.0"
+flake8 = "^7.1.1"
+isort = "^5.13.2"
+
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu124"
+priority = "supplemental"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

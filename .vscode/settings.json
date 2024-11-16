@@ -1,0 +1,10 @@
+{
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.testing.pytestEnabled": true,
+    "terminal.integrated.env.windows" : {  
+         "PYTHONPATH": "${workspaceFolder}"
+    },
+    
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    
+}

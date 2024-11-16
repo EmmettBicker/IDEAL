@@ -1,3 +1,8 @@
+# type: ignore
+# flake8: noqa
+
+# This idea hasn't worked yet but it's interesting!
+
 """
 Lookup Free Quantization
 Proposed in https://arxiv.org/abs/2310.05737
@@ -6,33 +11,35 @@ In the simplest setup, each dimension is quantized into {-1, 1}.
 An entropy penalty is used to encourage utilization.
 """
 
-from math import log2, ceil
-from functools import partial, cache
 from collections import namedtuple
 from contextlib import nullcontext
-
-import torch.distributed as dist
-from torch.distributed import nn as dist_nn
+from functools import cache, partial
+from math import ceil, log2
 
 import torch
-from torch import nn, einsum
+import torch.distributed as dist
 import torch.nn.functional as F
-from torch.nn import Module
+from einops import pack, rearrange, reduce, unpack
+from torch import einsum, nn
 from torch.amp import autocast
-
-from einops import rearrange, reduce, pack, unpack
+from torch.distributed import nn as dist_nn
+from torch.nn import Module
 
 # constants
 
-Return = namedtuple('Return', ['quantized', 'indices', 'entropy_aux_loss'])
+Return = namedtuple("Return", ["quantized", "indices", "entropy_aux_loss"])
 
-LossBreakdown = namedtuple('LossBreakdown', ['per_sample_entropy', 'batch_entropy', 'commitment'])
+LossBreakdown = namedtuple(
+    "LossBreakdown", ["per_sample_entropy", "batch_entropy", "commitment"]
+)
 
 # distributed helpers
+
 
 @cache
 def is_distributed():
     return dist.is_initialized() and dist.get_world_size() > 1
+
 
 def maybe_distributed_mean(t):
     if not is_distributed():
@@ -42,13 +49,17 @@ def maybe_distributed_mean(t):
     t = t / dist.get_world_size()
     return t
 
+
 # helper functions
+
 
 def exists(v):
     return v is not None
 
+
 def identity(t):
     return t
+
 
 def default(*args):
     for arg in args:
@@ -56,110 +67,120 @@ def default(*args):
             return arg() if callable(arg) else arg
     return None
 
+
 def pack_one(t, pattern):
     return pack([t], pattern)
+
 
 def unpack_one(t, ps, pattern):
     return unpack(t, ps, pattern)[0]
 
+
 def l2norm(t):
-    return F.normalize(t, dim = -1)
+    return F.normalize(t, dim=-1)
+
 
 # entropy
 
-def log(t, eps = 1e-5):
-    return t.clamp(min = eps).log()
+
+def log(t, eps=1e-5):
+    return t.clamp(min=eps).log()
+
 
 def entropy(prob):
     return (-prob * log(prob)).sum(dim=-1)
 
+
 # cosine sim linear
 
+
 class CosineSimLinear(Module):
-    def __init__(
-        self,
-        dim_in,
-        dim_out,
-        scale = 1.
-    ):
+    def __init__(self, dim_in, dim_out, scale=1.0):
         super().__init__()
         self.scale = scale
         self.weight = nn.Parameter(torch.randn(dim_in, dim_out))
 
     def forward(self, x):
-        x = F.normalize(x, dim = -1)
-        w = F.normalize(self.weight, dim = 0)
+        x = F.normalize(x, dim=-1)
+        w = F.normalize(self.weight, dim=0)
         return (x @ w) * self.scale
+
 
 class RecurrentBinaryQuantizer(nn.Module):
     def __init__(self, n_outputs, d_embed, codebook_value=1):
         super().__init__()
         self.n_outputs = n_outputs
         self.gru = nn.GRU(1, d_embed, batch_first=True)
-        self.output_layer = nn.Linear(d_embed,1)
+        self.output_layer = nn.Linear(d_embed, 1)
         self.codebook_value = codebook_value
-    
+
     def forward(self, embedding):
         B, L, _ = embedding.shape
         BL = B * L
         embedding = embedding.view(1, BL, -1)
-        
-        hidden_state = torch.zeros(1, BL, embedding.size(-1), device=embedding.device)
+
+        hidden_state = torch.zeros(1, BL,
+                                   embedding.size(-1), device=embedding.device)
         input_step = torch.zeros(BL, 1, 1, device=embedding.device)
-        
+
         outputs = torch.zeros(BL, self.n_outputs, device=embedding.device)
         quantized = torch.zeros(BL, self.n_outputs, device=embedding.device)
         for idx in range(self.n_outputs):
-            gru_output, hidden_state = self.gru(input_step, hidden_state + embedding)
+            gru_output, hidden_state = self.gru(input_step,
+                                                hidden_state + embedding)
             gru_output = self.output_layer(gru_output)
             outputs[:, idx] = gru_output.squeeze()
-            
-            q = torch.where(gru_output > 0, self.codebook_value, -self.codebook_value)
-            quantized[:,idx] = q.squeeze() 
-            input_step = q.float() 
-        
-        return outputs.view(B,L,-1), quantized.view(B,L,-1)
-            
+
+            q = torch.where(gru_output > 0,
+                            self.codebook_value, -self.codebook_value)
+            quantized[:, idx] = q.squeeze()
+            input_step = q.float()
+
+        return outputs.view(B, L, -1), quantized.view(B, L, -1)
+
 
 # class
-
 
 
 class RecurrentLFQ(Module):
     def __init__(
         self,
         *,
-        dim = None,
-        codebook_size = None,
-        d_embed = None,
-        entropy_loss_weight = 0.1,
-        commitment_loss_weight = 0.,
-        diversity_gamma = 1.,
-        straight_through_activation = nn.Identity(),
-        num_codebooks = 1,
-        keep_num_codebooks_dim = None,
-        codebook_scale = 1.,                        # for residual LFQ, codebook scaled down by 2x at each layer
-        frac_per_sample_entropy = 1.,               # make less than 1. to only use a random fraction of the probs for per sample entropy
-        has_projections = None,
-        projection_has_bias = True,
-        soft_clamp_input_value = None,
-        cosine_sim_project_in = False,
-        cosine_sim_project_in_scale = None,
-        channel_first = None,
-        experimental_softplus_entropy_loss = False,
-        entropy_loss_offset = 5.,                   # how much to shift the loss before softplus
-        spherical = False,                          # from https://arxiv.org/abs/2406.07548
-        force_quantization_f32 = True               # will force the quantization step to be full precision
+        dim=None,
+        codebook_size=None,
+        d_embed=None,
+        entropy_loss_weight=0.1,
+        commitment_loss_weight=0.0,
+        diversity_gamma=1.0,
+        straight_through_activation=nn.Identity(),
+        num_codebooks=1,
+        keep_num_codebooks_dim=None,
+        codebook_scale=1.0,  # for residual LFQ, codebook scaled down by 2x at each layer
+        frac_per_sample_entropy=1.0,  # make less than 1. to only use a random fraction of the probs for per sample entropy
+        has_projections=None,
+        projection_has_bias=True,
+        soft_clamp_input_value=None,
+        cosine_sim_project_in=False,
+        cosine_sim_project_in_scale=None,
+        channel_first=None,
+        experimental_softplus_entropy_loss=False,
+        entropy_loss_offset=5.0,  # how much to shift the loss before softplus
+        spherical=False,  # from https://arxiv.org/abs/2406.07548
+        force_quantization_f32=True,  # will force the quantization step to be full precision
     ):
         super().__init__()
 
         # some assert validations
 
-        assert exists(dim) or exists(codebook_size), 'either dim or codebook_size must be specified for LFQ'
-        assert exists(d_embed) , 'd_embed'
-        assert not exists(codebook_size) or log2(codebook_size).is_integer(), f'your codebook size must be a power of 2 for lookup free quantization (suggested {2 ** ceil(log2(codebook_size))})'
+        assert exists(dim) or exists(
+            codebook_size
+        ), "either dim or codebook_size must be specified for LFQ"
+        assert exists(d_embed), "d_embed"
+        assert (
+            not exists(codebook_size) or log2(codebook_size).is_integer()
+        ), f"your codebook size must be a power of 2 for lookup free quantization (suggested {2 ** ceil(log2(codebook_size))})"
 
-        codebook_size = default(codebook_size, lambda: 2 ** dim)
+        codebook_size = default(codebook_size, lambda: 2**dim)
         self.codebook_size = codebook_size
 
         codebook_dim = int(log2(codebook_size))
@@ -171,12 +192,18 @@ class RecurrentLFQ(Module):
 
         if cosine_sim_project_in:
             cosine_sim_project_in = default(cosine_sim_project_in_scale, codebook_scale)
-            project_in_klass = partial(CosineSimLinear, scale = cosine_sim_project_in)
+            project_in_klass = partial(CosineSimLinear, scale=cosine_sim_project_in)
         else:
-            project_in_klass = partial(nn.Linear, bias = projection_has_bias)
+            project_in_klass = partial(nn.Linear, bias=projection_has_bias)
 
-        self.project_in = project_in_klass(dim, codebook_dims) if has_projections else nn.Identity()
-        self.project_out = nn.Linear(codebook_dims, dim, bias = projection_has_bias) if has_projections else nn.Identity()
+        self.project_in = (
+            project_in_klass(dim, codebook_dims) if has_projections else nn.Identity()
+        )
+        self.project_out = (
+            nn.Linear(codebook_dims, dim, bias=projection_has_bias)
+            if has_projections
+            else nn.Identity()
+        )
         self.has_projections = has_projections
 
         self.dim = dim
@@ -198,11 +225,13 @@ class RecurrentLFQ(Module):
         # whether to use BSQ (binary spherical quantization)
 
         self.spherical = spherical
-        self.maybe_l2norm = (lambda t: l2norm(t) * self.codebook_scale) if spherical else identity
+        self.maybe_l2norm = (
+            (lambda t: l2norm(t) * self.codebook_scale) if spherical else identity
+        )
 
         # entropy aux loss related weights
 
-        assert 0 < frac_per_sample_entropy <= 1.
+        assert 0 < frac_per_sample_entropy <= 1.0
         self.frac_per_sample_entropy = frac_per_sample_entropy
 
         self.diversity_gamma = diversity_gamma
@@ -219,7 +248,10 @@ class RecurrentLFQ(Module):
         # whether to soft clamp the input value from -value to value
 
         self.soft_clamp_input_value = soft_clamp_input_value
-        assert not exists(soft_clamp_input_value) or soft_clamp_input_value >= codebook_scale
+        assert (
+            not exists(soft_clamp_input_value)
+            or soft_clamp_input_value >= codebook_scale
+        )
 
         # whether to make the entropy loss positive through a softplus (experimental, please report if this worked or not in discussions)
 
@@ -228,8 +260,8 @@ class RecurrentLFQ(Module):
 
         # for no auxiliary loss, during inference
 
-        self.register_buffer('mask', 2 ** torch.arange(codebook_dim - 1, -1, -1))
-        self.register_buffer('zero', torch.tensor(0.), persistent = False)
+        self.register_buffer("mask", 2 ** torch.arange(codebook_dim - 1, -1, -1))
+        self.register_buffer("zero", torch.tensor(0.0), persistent=False)
 
         # whether to force quantization step to be f32
 
@@ -241,9 +273,11 @@ class RecurrentLFQ(Module):
         bits = ((all_codes[..., None].int() & self.mask) != 0).float()
         codebook = self.bits_to_codes(bits)
 
-        self.rbq = RecurrentBinaryQuantizer(int(log2(codebook_size)), d_embed, codebook_scale)
+        self.rbq = RecurrentBinaryQuantizer(
+            int(log2(codebook_size)), d_embed, codebook_scale
+        )
 
-        self.register_buffer('codebook', codebook.float(), persistent = False)
+        self.register_buffer("codebook", codebook.float(), persistent=False)
 
     def bits_to_codes(self, bits):
         return bits * self.codebook_scale * 2 - self.codebook_scale
@@ -252,16 +286,12 @@ class RecurrentLFQ(Module):
     def dtype(self):
         return self.codebook.dtype
 
-    def indices_to_codes(
-        self,
-        indices,
-        project_out = True
-    ):
+    def indices_to_codes(self, indices, project_out=True):
         is_img_or_video = indices.ndim >= (3 + int(self.keep_num_codebooks_dim))
         should_transpose = default(self.channel_first, is_img_or_video)
 
         if not self.keep_num_codebooks_dim:
-            indices = rearrange(indices, '... -> ... 1')
+            indices = rearrange(indices, "... -> ... 1")
 
         # indices to codes, which are bits of either -1 or 1
 
@@ -271,7 +301,7 @@ class RecurrentLFQ(Module):
 
         codes = self.maybe_l2norm(codes)
 
-        codes = rearrange(codes, '... c d -> ... (c d)')
+        codes = rearrange(codes, "... c d -> ... (c d)")
 
         # whether to project codes out to original dimensions
         # if the input feature dimensions were not log2(codebook size)
@@ -282,16 +312,16 @@ class RecurrentLFQ(Module):
         # rearrange codes back to original shape
 
         if should_transpose:
-            codes = rearrange(codes, 'b ... d -> b d ...')
+            codes = rearrange(codes, "b ... d -> b d ...")
 
         return codes
 
     def forward(
         self,
         x,
-        inv_temperature = 100.,
-        return_loss_breakdown = False,
-        mask = None,
+        inv_temperature=100.0,
+        return_loss_breakdown=False,
+        mask=None,
     ):
         """
         einstein notation
@@ -307,22 +337,26 @@ class RecurrentLFQ(Module):
         # standardize image or video into (batch, seq, dimension)
 
         if should_transpose:
-            x = rearrange(x, 'b d ... -> b ... d')
-            x, ps = pack_one(x, 'b * d')
+            x = rearrange(x, "b d ... -> b ... d")
+            x, ps = pack_one(x, "b * d")
         # CHANGE IN RECURRENT LFQ
-        assert x.shape[-1] == self.d_embed, f'expected dimension of {self.d_embed} but received {x.shape[-1]}'
+        assert (
+            x.shape[-1] == self.d_embed
+        ), f"expected dimension of {self.d_embed} but received {x.shape[-1]}"
 
         # ------------------------ RECURRENT LFQ EDITS ------------------------
 
         x, quantized = self.rbq(x)
-        x = rearrange(x, 'b n (c d) -> b n c d', c = self.num_codebooks)
-        quantized = rearrange(quantized, 'b n (c d) -> b n c d', c = self.num_codebooks)
+        x = rearrange(x, "b n (c d) -> b n c d", c=self.num_codebooks)
+        quantized = rearrange(quantized, "b n (c d) -> b n c d", c=self.num_codebooks)
 
         # whether to force quantization step to be full precision or not
 
         force_f32 = self.force_quantization_f32
 
-        quantization_context = partial(autocast, 'cuda', enabled = False) if force_f32 else nullcontext
+        quantization_context = (
+            partial(autocast, "cuda", enabled=False) if force_f32 else nullcontext
+        )
 
         with quantization_context():
 
@@ -339,7 +373,9 @@ class RecurrentLFQ(Module):
 
             # calculate indices
 
-            indices = reduce((quantized > 0).int() * self.mask.int(), 'b n c d -> b n c', 'sum')
+            indices = reduce(
+                (quantized > 0).int() * self.mask.int(), "b n c d -> b n c", "sum"
+            )
 
             # maybe l2norm
 
@@ -363,23 +399,27 @@ class RecurrentLFQ(Module):
                 codebook = self.maybe_l2norm(codebook)
 
                 # the same as euclidean distance up to a constant
-                distance = -2 * einsum('... i d, j d -> ... i j', original_input, codebook)
+                distance = -2 * einsum(
+                    "... i d, j d -> ... i j", original_input, codebook
+                )
 
-                prob = (-distance * inv_temperature).softmax(dim = -1)
+                prob = (-distance * inv_temperature).softmax(dim=-1)
 
                 # account for mask
 
                 if exists(mask):
                     prob = prob[mask]
                 else:
-                    prob = rearrange(prob, 'b n ... -> (b n) ...')
+                    prob = rearrange(prob, "b n ... -> (b n) ...")
 
                 # whether to only use a fraction of probs, for reducing memory
 
-                if self.frac_per_sample_entropy < 1.:
+                if self.frac_per_sample_entropy < 1.0:
                     num_tokens = prob.shape[0]
                     num_sampled_tokens = int(num_tokens * self.frac_per_sample_entropy)
-                    rand_mask = torch.randn(num_tokens).argsort(dim = -1) < num_sampled_tokens
+                    rand_mask = (
+                        torch.randn(num_tokens).argsort(dim=-1) < num_sampled_tokens
+                    )
                     per_sample_probs = prob[rand_mask]
                 else:
                     per_sample_probs = prob
@@ -390,7 +430,7 @@ class RecurrentLFQ(Module):
 
                 # distribution over all available tokens in the batch
 
-                avg_prob = reduce(per_sample_probs, '... c d -> c d', 'mean')
+                avg_prob = reduce(per_sample_probs, "... c d -> c d", "mean")
 
                 avg_prob = maybe_distributed_mean(avg_prob)
 
@@ -399,7 +439,9 @@ class RecurrentLFQ(Module):
                 # 1. entropy will be nudged to be low for each code, to encourage the network to output confident predictions
                 # 2. codebook entropy will be nudged to be high, to encourage all codes to be uniformly used within the batch
 
-                entropy_aux_loss = per_sample_entropy - self.diversity_gamma * codebook_entropy
+                entropy_aux_loss = (
+                    per_sample_entropy - self.diversity_gamma * codebook_entropy
+                )
             else:
                 # if not training, just return dummy 0
                 entropy_aux_loss = per_sample_entropy = codebook_entropy = self.zero
@@ -407,13 +449,17 @@ class RecurrentLFQ(Module):
             # whether to make the entropy loss positive or not through a (shifted) softplus
 
             if self.training and self.experimental_softplus_entropy_loss:
-                entropy_aux_loss = F.softplus(entropy_aux_loss + self.entropy_loss_offset)
+                entropy_aux_loss = F.softplus(
+                    entropy_aux_loss + self.entropy_loss_offset
+                )
 
             # commit loss
 
-            if self.training and self.commitment_loss_weight > 0.:
+            if self.training and self.commitment_loss_weight > 0.0:
 
-                commit_loss = F.mse_loss(original_input, quantized.detach(), reduction = 'none')
+                commit_loss = F.mse_loss(
+                    original_input, quantized.detach(), reduction="none"
+                )
 
                 if exists(mask):
                     commit_loss = commit_loss[mask]
@@ -429,7 +475,7 @@ class RecurrentLFQ(Module):
 
         # merge back codebook dim
 
-        x = rearrange(x, 'b n c d -> b n (c d)')
+        x = rearrange(x, "b n c d -> b n (c d)")
 
         # project out to feature dimension if needed
 
@@ -438,19 +484,22 @@ class RecurrentLFQ(Module):
         # reconstitute image or video dimensions
 
         if should_transpose:
-            x = unpack_one(x, ps, 'b * d')
-            x = rearrange(x, 'b ... d -> b d ...')
+            x = unpack_one(x, ps, "b * d")
+            x = rearrange(x, "b ... d -> b d ...")
 
-            indices = unpack_one(indices, ps, 'b * c')
+            indices = unpack_one(indices, ps, "b * c")
 
         # whether to remove single codebook dim
 
         if not self.keep_num_codebooks_dim:
-            indices = rearrange(indices, '... 1 -> ...')
+            indices = rearrange(indices, "... 1 -> ...")
 
         # complete aux loss
 
-        aux_loss = entropy_aux_loss * self.entropy_loss_weight + commit_loss * self.commitment_loss_weight
+        aux_loss = (
+            entropy_aux_loss * self.entropy_loss_weight
+            + commit_loss * self.commitment_loss_weight
+        )
 
         # returns
 
