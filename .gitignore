@@ -1,9 +1,8 @@
 # Dev
-.vscode
+.vscode/
 
 # Pytest cache
 .pytest_cache
 
 # Pycache
-__pycache__
-**/__pycache__
+__pycache__/
