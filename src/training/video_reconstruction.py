@@ -37,29 +37,22 @@ val_loader = DataLoader(val_dataset, batch_size=2, shuffle=False)
 extra_tokens = 3
 
 layers = 1
-hidden_size = 192
+hidden_size = 18
+num_heads = 1
+
 models: dict[str, ITranslator] = {
 
-    "IDEAL-binary-1024-1:1": IDEALTranslator(
+    "IDEAL-2^18-1:1": IDEALTranslator(
         tokenizer=None,
-        idea_token_vocab_size=1024,
-        vocab_size=vocab_size + extra_tokens,
+        idea_token_vocab_size=2**18,
+        vocab_size=vocab_size,
+        use_binary_input_vocab_embed=True,
         idea_tokens_per_token=1,
         max_sequence_length=4096,
         num_decoder_layers=layers,
         num_text_encoder_layers=layers,
         hidden_size=hidden_size,
-    ).to(device),
-
-    "IDEAL-1024-1:1": IDEALTranslator(
-        tokenizer=None,
-        idea_token_vocab_size=1024,
-        vocab_size=vocab_size + extra_tokens,
-        idea_tokens_per_token=1,
-        max_sequence_length=4096,
-        num_decoder_layers=layers,
-        num_text_encoder_layers=layers,
-        hidden_size=hidden_size,
+        num_heads=num_heads
     ).to(device),
 
     # "IDEAL-1024-1:1": IDEALTranslator(
@@ -73,22 +66,22 @@ models: dict[str, ITranslator] = {
     #     hidden_size=hidden_size,
     # ).to(device),
 
-
-    "Standard": StandardTransformer(
-        tokenizer=None,
-        vocab_size=vocab_size + extra_tokens,
-        max_sequence_length=4096,
-        num_decoder_layers=layers,
-        num_encoder_layers=layers,
-        hidden_size=hidden_size,
-    ).to(device),
+    # "Standard": StandardTransformer(
+    #     tokenizer=None,
+    #     vocab_size=vocab_size + extra_tokens,
+    #     max_sequence_length=4096,
+    #     num_decoder_layers=layers,
+    #     num_encoder_layers=layers,
+    #     hidden_size=hidden_size,
+    #     num_heads=num_heads
+    # ).to(device),
 }
 
 # models['IDEAL-lfq1024'].load_state_dict(
 #   torch.load("IDEAL-lfq1024.pth", weights_only=True))
 
 # Initialize optimizers in a dictionary
-optimizers = {name: Adam(model.parameters(), lr=1e-4) for name, model in
+optimizers = {name: Adam(model.parameters(), lr=1e-3) for name, model in
               models.items()}
 
 # Initialize loss tracking
@@ -97,14 +90,15 @@ val_losses: dict[str, list[float]] = {name: [] for name in models}
 step_losses: dict[str, list[float]] = {name: [] for name in models}
 
 
-def process_batch(batch: tuple[torch.Tensor, torch.Tensor]):
+def process_batch(model: ITranslator,
+                  batch: tuple[torch.Tensor, torch.Tensor]):
     tensor, attn_mask = batch
     source_tokens = tensor.to(device)
     target_tokens = tensor.to(device)
 
-    pad_token_id = vocab_size
-    bos_token_id = vocab_size+1
-    eos_token_id = vocab_size+2
+    pad_token_id = 0
+    bos_token_id = 1
+    eos_token_id = 2
     bos = torch.tensor([[bos_token_id]] * target_tokens.size(0),
                        device=device)
     target_tokens = torch.cat((bos, target_tokens), dim=1)
@@ -130,10 +124,17 @@ def process_batch(batch: tuple[torch.Tensor, torch.Tensor]):
         source_tokens, padding_mask, target_tokens, tgt_padding_mask
     )
 
-    loss = F.cross_entropy(
-        output_logits.view(-1, output_logits.size(-1)),
-        source_tokens.view(-1),
-        ignore_index=pad_token_id,
+    def to_binary(tensor: torch.Tensor) -> torch.Tensor:
+        num_bits = 18
+        tensor = tensor.to(torch.int32)
+        binary = tensor.unsqueeze(-1).bitwise_and(
+            2**torch.arange(num_bits, dtype=torch.int32).to(tensor.device)
+            ).float()
+        return binary
+
+    loss = F.binary_cross_entropy(
+        output_logits.view(-1),  # Should be full binarization
+        to_binary(source_tokens).view(-1),
         reduction="mean",
     )
 
@@ -147,7 +148,7 @@ def validate(model: ITranslator):
     with torch.no_grad():
         for batch in val_loader:
 
-            loss, _ = process_batch(batch)
+            loss, _ = process_batch(model, batch)
 
             total_loss += loss.item()
 
@@ -161,7 +162,7 @@ def train_epoch(model: ITranslator, optimizer: Optimizer, name: str):
     for batch_idx, batch in enumerate(train_loader):
         optimizer.zero_grad()
 
-        translation_loss, aux_loss = process_batch(batch)
+        translation_loss, aux_loss = process_batch(model, batch)
         og_translation_loss = translation_loss.detach().clone()
 
         # Track loss every N batches
@@ -173,11 +174,9 @@ def train_epoch(model: ITranslator, optimizer: Optimizer, name: str):
 
         total_loss += translation_loss.item()
 
-        if batch_idx % 4000 == 0:
+        if batch_idx % 200 == 0:
             print(
-                f"{name} Batch {batch_idx}, Total Loss: {
-                    translation_loss.item():.4f}, Loss: {
-                        og_translation_loss.item():.4f}"
+                f"{name} Batch {batch_idx}, Total Loss: {translation_loss.item():.4f}, Loss: {og_translation_loss.item():.4f}" # noqa
             )
             if name != "Standard":
                 print(f"Aux loss: {aux_loss}")
@@ -242,8 +241,7 @@ if __name__ == "__main__":
             train_losses[name].append(train_loss)
             val_losses[name].append(val_loss)
 
-            print(f"{name} Train Loss: {train_loss:.4f}, Val Loss: {
-                val_loss:.4f}")
+            print(f"{name} Train Loss: {train_loss:.4f}, Val Loss: { val_loss:.4f}")
 
         # Plot current progress
         plot_losses()

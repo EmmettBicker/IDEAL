@@ -1,3 +1,4 @@
+import traceback
 import math
 import random
 from abc import abstractmethod
@@ -116,12 +117,14 @@ class IDEALTranslator(ITranslator, nn.Module):
             ),
             num_layers=num_decoder_layers,
         )
-        self.project_return = nn.Linear(hidden_size, vocab_size)
 
         self.tokenizer = tokenizer
-
-        self.binary_text_embeddings = nn.Linear(
-            self.binary_vocab_sz, hidden_size)
+        if use_binary_input_vocab_embed:
+            self.project_return = nn.Linear(hidden_size, self.binary_vocab_sz)
+            self.binary_text_embeddings = nn.Linear(
+                self.binary_vocab_sz, hidden_size)
+        else:
+            self.project_return = nn.Linear(hidden_size, vocab_size)
 
         def binary_embedding(tensor: torch.Tensor) -> torch.Tensor:
             num_bits = self.binary_vocab_sz
@@ -267,7 +270,11 @@ class IDEALTranslator(ITranslator, nn.Module):
                 * self.quantizer.entropy_loss_weight
             )
         else:
-            quantized_output, _, aux_loss = self.quantizer(embeddings)
+            try:
+                quantized_output, _, aux_loss = self.quantizer(embeddings)
+            except Exception:
+                print(traceback.format_exc())
+                raise Exception
 
         quantized_output = self.proj_from_idea_split(quantized_output)
         return quantized_output, aux_loss
@@ -289,6 +296,7 @@ class StandardTransformer(ITranslator, nn.Module):
         dim_feedforward: int = 768,
         num_encoder_layers: int = 6,
         num_decoder_layers: int = 6,
+        num_heads: int = 6
     ):
 
         super().__init__()  # type: ignore
@@ -297,7 +305,7 @@ class StandardTransformer(ITranslator, nn.Module):
         self.encoder = nn.TransformerEncoder(
             nn.TransformerEncoderLayer(
                 d_model=hidden_size,
-                nhead=8,
+                nhead=num_heads,
                 dim_feedforward=dim_feedforward,
                 batch_first=True,
             ),
@@ -307,7 +315,7 @@ class StandardTransformer(ITranslator, nn.Module):
         self.decoder = nn.TransformerDecoder(
             nn.TransformerDecoderLayer(
                 d_model=hidden_size,
-                nhead=8,
+                nhead=num_heads,
                 dim_feedforward=dim_feedforward,
                 batch_first=True,
             ),
