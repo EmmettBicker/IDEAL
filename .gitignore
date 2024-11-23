@@ -6,3 +6,57 @@
 
 # Pycache
 __pycache__/
+
+# Tokens
+src/data/image_tokens.zip
+
+src/data/image_tokens/tests/image_tokens_0_1009.pt
+src/data/image_tokens/tests/image_tokens_0_10124.pt
+src/data/image_tokens/tests/image_tokens_0_11145.pt
+src/data/image_tokens/tests/image_tokens_0_12160.pt
+src/data/image_tokens/tests/image_tokens_0_13171.pt
+src/data/image_tokens/tests/image_tokens_0_14185.pt
+src/data/image_tokens/tests/image_tokens_0_15198.pt
+src/data/image_tokens/tests/image_tokens_0_16212.pt
+src/data/image_tokens/tests/image_tokens_0_17219.pt
+src/data/image_tokens/tests/image_tokens_0_18237.pt
+src/data/image_tokens/tests/image_tokens_0_19254.pt
+src/data/image_tokens/tests/image_tokens_0_2017.pt
+src/data/image_tokens/tests/image_tokens_0_20269.pt
+src/data/image_tokens/tests/image_tokens_0_21277.pt
+src/data/image_tokens/tests/image_tokens_0_22291.pt
+src/data/image_tokens/tests/image_tokens_0_23307.pt
+src/data/image_tokens/tests/image_tokens_0_24318.pt
+src/data/image_tokens/tests/image_tokens_0_25328.pt
+src/data/image_tokens/tests/image_tokens_0_26338.pt
+src/data/image_tokens/tests/image_tokens_0_27356.pt
+src/data/image_tokens/tests/image_tokens_0_28368.pt
+src/data/image_tokens/tests/image_tokens_0_29379.pt
+src/data/image_tokens/tests/image_tokens_0_3029.pt
+src/data/image_tokens/tests/image_tokens_0_30393.pt
+src/data/image_tokens/tests/image_tokens_0_31408.pt
+src/data/image_tokens/tests/image_tokens_0_32424.pt
+src/data/image_tokens/tests/image_tokens_0_33438.pt
+# src/data/image_tokens/tests/image_tokens_0_34453.pt
+# src/data/image_tokens/tests/image_tokens_0_35464.pt
+# src/data/image_tokens/tests/image_tokens_0_36475.pt
+# src/data/image_tokens/tests/image_tokens_0_37488.pt
+# src/data/image_tokens/tests/image_tokens_0_38498.pt
+# src/data/image_tokens/tests/image_tokens_0_39516.pt
+# src/data/image_tokens/tests/image_tokens_0_4037.pt
+# src/data/image_tokens/tests/image_tokens_0_40525.pt
+# src/data/image_tokens/tests/image_tokens_0_41535.pt
+# src/data/image_tokens/tests/image_tokens_0_42545.pt
+# src/data/image_tokens/tests/image_tokens_0_43553.pt
+# src/data/image_tokens/tests/image_tokens_0_44569.pt
+# src/data/image_tokens/tests/image_tokens_0_45582.pt
+# src/data/image_tokens/tests/image_tokens_0_46593.pt
+# src/data/image_tokens/tests/image_tokens_0_47602.pt
+# src/data/image_tokens/tests/image_tokens_0_48626.pt
+# src/data/image_tokens/tests/image_tokens_0_49651.pt
+# src/data/image_tokens/tests/image_tokens_0_49999.pt
+# src/data/image_tokens/tests/image_tokens_0_5053.pt
+# src/data/image_tokens/tests/image_tokens_0_6069.pt
+# src/data/image_tokens/tests/image_tokens_0_7081.pt
+# src/data/image_tokens/tests/image_tokens_0_8091.pt
+# src/data/image_tokens/tests/image_tokens_0_9112.pt

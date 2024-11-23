@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Union
+from typing import Union, cast
 
 import torch
 from transformers import GPT2Tokenizer as HFGPT2Tokenizer  # type: ignore
@@ -39,26 +39,24 @@ class CharTokenizer(ITokenizer):
     def encode(self, text: str):
         return [self.char_to_idx.get(c, self.unk_token_id) for c in text]
 
-    def token_ids(self, batched_ids: torch.Tensor) -> str | list[str]:
-        if batched_ids.ndim != 1:
-            return [
-                "".join(
-                    [
-                        self.idx_to_char[int(id.item())]
-                        for id in ids
-                        if id.item() not in [self.pad_token_id]
-                    ]
-                )
-                for ids in batched_ids
+    def decode(self,
+               token_ids: Union[int,  # type: ignore
+                                list[int],
+                                "np.ndarray",  # type: ignore # noqa: F821
+                                "torch.Tensor",
+                                "tf.Tensor"],  # type: ignore # noqa: F821
+               skip_special_tokens: bool = False,
+               clean_up_tokenization_spaces: bool = None,  # type: ignore
+               **kwargs,  # type: ignore
+               ) -> str:
+        token_ids: torch.Tensor = cast(torch.Tensor, token_ids)
+        return "".join(
+            [
+                self.idx_to_char[int(id.item())]
+                for id in token_ids
+                if id.item() not in [self.pad_token_id]
             ]
-        else:
-            return "".join(
-                [
-                    self.idx_to_char[int(id.item())]
-                    for id in batched_ids
-                    if id.item() not in [self.pad_token_id]
-                ]
-            )
+        )
 
     def __call__(
         self,

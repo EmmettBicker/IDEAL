@@ -1,6 +1,7 @@
 import math
-# import random
+import random
 from abc import abstractmethod
+from enum import Enum
 
 import torch
 import torch.nn as nn
@@ -19,20 +20,29 @@ class ITranslator(nn.Module):
         raise NotImplementedError("Abstract Method")
 
 
+class AuxLossSetting(Enum):
+    FULL_AUX_LOSS = 1,
+    COMMITMENT_AND_BATCH_ENTROPY = 2,
+    COMMITMENT = 3
+
+
 class IDEALTranslator(ITranslator, nn.Module):
     def __init__(
         self,
-        tokenizer: ITokenizer,
+        tokenizer: ITokenizer | None,
         v2: bool = False,
         max_sequence_length: int = 512,
         vocab_size: int = 50257,
+        use_binary_input_vocab_embed: bool = False,
         idea_token_vocab_size: int = 1024,
+        idea_tokens_per_token: int = 1,
         hidden_size: int = 768,
         dim_feedforward: int = 768,
         num_text_encoder_layers: int = 6,
         num_idea_encoder_layers: int = 6,
         num_decoder_layers: int = 6,
-        no_per_sample_entropy: bool = True,
+        aux_loss_setting: AuxLossSetting = AuxLossSetting.FULL_AUX_LOSS,
+        skip_decoder: bool = False
     ):
         super().__init__()  # type: ignore
 
@@ -40,6 +50,17 @@ class IDEALTranslator(ITranslator, nn.Module):
             idea_token_vocab_size & (idea_token_vocab_size - 1) == 0
         ) and idea_token_vocab_size != 0, \
             "idea_token_vocab_size must be a power of 2"
+
+        assert (
+            vocab_size & (vocab_size - 1) == 0
+        ) or not use_binary_input_vocab_embed, \
+            "when using use_binary_input_vocab_embed vocab_size \
+                must be a power of 2"
+        self.use_binary_input_vocab_embed = use_binary_input_vocab_embed
+        self.binary_vocab_sz = int(math.log2(vocab_size))
+
+        assert hidden_size % idea_tokens_per_token == 0, \
+            "hidden_size must be divisible by idea_tokens_per_token"
 
         # Model 1: GPT2 tokens to idea tokens
         self.text_encoder = nn.TransformerEncoder(
@@ -68,8 +89,13 @@ class IDEALTranslator(ITranslator, nn.Module):
         self.idea_token_vocab_size = idea_token_vocab_size
         self.latent_dim = int(math.log2(self.idea_token_vocab_size))
 
+        self.idea_tokens_per_token = idea_tokens_per_token
+        self.split_embedding_dim = hidden_size // idea_tokens_per_token
+        self.proj_from_idea_split = nn.Linear(self.split_embedding_dim,
+                                              hidden_size)
+
         self.quantizer = LFQ(
-            dim=hidden_size,
+            dim=hidden_size // idea_tokens_per_token,
             codebook_size=idea_token_vocab_size,
             has_projections=True,
             num_codebooks=1,  # hyperparameter later
@@ -92,12 +118,31 @@ class IDEALTranslator(ITranslator, nn.Module):
         self.project_return = nn.Linear(hidden_size, vocab_size)
 
         self.tokenizer = tokenizer
-        self.gpt2_embeddings = nn.Embedding(vocab_size + 1, hidden_size)  # bos
+
+        self.binary_text_embeddings = nn.Linear(
+            self.binary_vocab_sz, hidden_size)
+
+        def binary_embedding(tensor: torch.Tensor) -> torch.Tensor:
+            num_bits = self.binary_vocab_sz
+            # Convert to bits
+            binary = tensor.unsqueeze(-1).bitwise_and(
+                2**torch.arange(num_bits).to(tensor.device)).bool()
+            # binary = binary.flip(-1)
+
+            # Convert zeros to -1s
+            binary_pm = 2 * binary.float() - 1
+            return self.binary_text_embeddings(binary_pm)
+
+        self.text_embeddings = binary_embedding if \
+            use_binary_input_vocab_embed else \
+            nn.Embedding(vocab_size, hidden_size)
+
         self.pos_encoding = nn.Embedding(
             max_sequence_length + 1, hidden_size
         )  # Max sequence
 
-        self.no_per_sample_entropy = no_per_sample_entropy
+        self.aux_loss_setting = aux_loss_setting
+        self.skip_decoder = skip_decoder
 
     def forward(
         self,
@@ -108,7 +153,7 @@ class IDEALTranslator(ITranslator, nn.Module):
     ) -> tuple[torch.Tensor, torch.Tensor]:
         # B, L = source_tokens.size(0), source_tokens.size(1)
 
-        src_embeddings = self.gpt2_embeddings(source_tokens)
+        src_embeddings = self.text_embeddings(source_tokens)
         position_indices = (
             torch.arange(0, source_tokens.size(1), device=source_tokens.device)
             .unsqueeze(0)
@@ -127,16 +172,22 @@ class IDEALTranslator(ITranslator, nn.Module):
 
         # LFQ
         idea_embeddings, aux_losses = self.get_idea_embeddings(embeddings)
+        idea_pos_embeddings = \
+            self.pos_encoding(position_indices.repeat_interleave(
+                repeats=self.idea_tokens_per_token, dim=-1))
+        idea_embeddings += idea_pos_embeddings
 
         # Adds ENCODER 2 if v2 is specified
         if self.v2:
             # ENCODER 2
             idea_embeddings = self.idea_encoder(
-                idea_embeddings, src_key_padding_mask=padding_mask
+                idea_embeddings,
+                src_key_padding_mask=padding_mask.repeat_interleave(
+                  repeats=self.idea_tokens_per_token, dim=-1),
             )
 
         # Idea positional encodings
-        tgt_embedded = self.gpt2_embeddings(target_tokens)
+        tgt_embedded = self.text_embeddings(target_tokens)
         position_indices = (
             torch.arange(0, tgt_embedded.size(1), device=source_tokens.device)
             .unsqueeze(0)
@@ -146,18 +197,22 @@ class IDEALTranslator(ITranslator, nn.Module):
         tgt_embedded = tgt_embedded + pos_embeddings
 
         # DECODER
-        decoder_output = self.decoder(
-            tgt_embedded,
-            idea_embeddings,
-            tgt_mask=self.generate_square_subsequent_mask(
-                target_tokens.size(1)).to(tgt_embedded.device),
-            memory_key_padding_mask=padding_mask,
-            tgt_key_padding_mask=tgt_padding_mask,
-        )
+        if not self.skip_decoder:
+            decoder_output = self.decoder(
+              tgt_embedded,
+              idea_embeddings,
+              tgt_mask=self.generate_square_subsequent_mask(
+                  target_tokens.size(1)).to(tgt_embedded.device),
+              memory_key_padding_mask=padding_mask.repeat_interleave(
+                  repeats=self.idea_tokens_per_token, dim=-1),
+              tgt_key_padding_mask=tgt_padding_mask,
+            )
 
-        output_logits = self.project_return(decoder_output)
+            output_logits = self.project_return(decoder_output)
+        else:
+            output_logits = self.project_return(idea_embeddings)
 
-        if False:
+        if random.random() > 0.97 and self.tokenizer is not None:
             print(
                 self.tokenizer.decode(  # type: ignore
                     source_tokens[0][~padding_mask[0]]),
@@ -188,31 +243,45 @@ class IDEALTranslator(ITranslator, nn.Module):
     def get_idea_embeddings(self,
                             embeddings: torch.Tensor
                             ) -> tuple[torch.Tensor, torch.Tensor]:
-        if self.no_per_sample_entropy:
+
+        B, L, _ = embeddings.shape
+        # Turn each token into idea_token_per_tokens tokens
+        embeddings = embeddings.view(B,
+                                     L * self.idea_tokens_per_token,
+                                     self.split_embedding_dim)
+        if self.aux_loss_setting == AuxLossSetting.COMMITMENT:
             ret, breakdown = self.quantizer(embeddings,
                                             return_loss_breakdown=True)
+            quantized_output = ret.quantized
+            aux_loss = breakdown.commitment
+        elif self.aux_loss_setting == \
+                AuxLossSetting.COMMITMENT_AND_BATCH_ENTROPY:
+            ret, breakdown = self.quantizer(embeddings,
+                                            return_loss_breakdown=True)
+            quantized_output = ret.quantized
             aux_loss = (
                 breakdown.commitment
                 - self.quantizer.diversity_gamma
                 * breakdown.batch_entropy
                 * self.quantizer.entropy_loss_weight
             )
-            quantized_output = ret.quantized
         else:
             quantized_output, _, aux_loss = self.quantizer(embeddings)
 
+        quantized_output = self.proj_from_idea_split(quantized_output)
         return quantized_output, aux_loss
 
     @staticmethod
     def generate_square_subsequent_mask(sz: int) -> torch.Tensor:
         mask = torch.triu(torch.ones(sz, sz), diagonal=1).bool()
+
         return mask
 
 
 class StandardTransformer(ITranslator, nn.Module):
     def __init__(
         self,
-        tokenizer: ITokenizer,
+        tokenizer: ITokenizer | None,
         max_sequence_length: int = 512,
         vocab_size: int = 50257,
         hidden_size: int = 768,
@@ -305,7 +374,7 @@ class StandardTransformer(ITranslator, nn.Module):
 
         output_logits = self.to_gpt2(decoder_output)
 
-        if False:  # random.random() > 0.995:
+        if False:  # random.random() > 0.995 and self.tokenizer is not None:
             print(
                 self.tokenizer.decode(  # type: ignore
                     source_tokens[0][~padding_mask[0]]),

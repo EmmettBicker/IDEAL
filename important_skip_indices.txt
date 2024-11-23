@@ -1,0 +1,1151 @@
+tarting from index 0
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1716, 1200]) and index:  31
+Processed 100 images
+Processed 200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  283
+Processed 300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1700, 2000]) and index:  308
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  309
+Processed 400 images
+Processed 500 images
+Processed 600 images
+Processed 700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1161, 872]) and index:  738
+Processed 800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1146, 1245]) and index:  859
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  860
+Processed 900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1960, 1548]) and index:  953
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  992
+Processed 1000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1840, 1232]) and index:  1002
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  1025
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1309, 1210]) and index:  1084
+Processed 1100 images
+Processed 1200 images
+Processed 1300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 856, 1339]) and index:  1315
+Processed 1400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  1495
+Processed 1500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2068, 1319]) and index:  1529
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  1541
+Processed 1600 images
+Processed 1700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 859, 1280]) and index:  1778
+Processed 1800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 869, 1301]) and index:  1863
+Processed 1900 images
+Processed 2000 images
+Processed 2100 images
+Processed 2200 images
+Processed 2300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  2340
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  2384
+Processed 2400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  2468
+Processed 2500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1152, 1536]) and index:  2588
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2503, 2000]) and index:  2589
+Processed 2600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1425, 1414]) and index:  2642
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1477, 945]) and index:  2645
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  2668
+Processed 2700 images
+Processed 2800 images
+Processed 2900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2484, 2484]) and index:  2908
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1371, 906]) and index:  2922
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  2929
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1068]) and index:  2931
+Processed 3000 images
+Processed 3100 images
+Processed 3200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  3241
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1535, 2128]) and index:  3259
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1651, 1806]) and index:  3277
+Processed 3300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  3379
+Processed 3400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2592, 3888]) and index:  3402
+Skipped frame of shape torch.Size([1, 1, 3, 1, 615, 1875]) and index:  3426
+Processed 3500 images
+Processed 3600 images
+Processed 3700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1184, 1792]) and index:  3752
+Processed 3800 images
+Processed 3900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  3991
+Processed 4000 images
+Processed 4100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 997, 1329]) and index:  4105
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  4127
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4128
+Processed 4200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4215
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1440, 1600]) and index:  4228
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3072, 2048]) and index:  4254
+Processed 4300 images
+Processed 4400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1402, 2481]) and index:  4423
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1512, 2016]) and index:  4451
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4491
+Processed 4500 images
+Processed 4600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2112, 2816]) and index:  4678
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4695
+Processed 4700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1282, 953]) and index:  4750
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  4798
+Processed 4800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4839
+Processed 4900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 912, 1216]) and index:  4956
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  4984
+Processed 5000 images
+Processed 5100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1162, 900]) and index:  5187
+Processed 5200 images
+Processed 5300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2272, 1704]) and index:  5385
+Processed 5400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  5484
+Processed 5500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2592, 1944]) and index:  5506
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1178, 1771]) and index:  5516
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2806, 1776]) and index:  5542
+Processed 5600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1959, 2078]) and index:  5627
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  5637
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  5683
+Processed 5700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1544]) and index:  5794
+Processed 5800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  5804
+Skipped frame of shape torch.Size([1, 1, 3, 1, 910, 1260]) and index:  5828
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2329, 951]) and index:  5876
+Processed 5900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1122, 1032]) and index:  5902
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  5911
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1000, 1333]) and index:  5932
+Processed 6000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  6098
+Processed 6100 images
+Processed 6200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  6232
+Processed 6300 images
+Processed 6400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  6418
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  6464
+Skipped frame of shape torch.Size([1, 1, 3, 1, 920, 1502]) and index:  6470
+Processed 6500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  6542
+Processed 6600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  6622
+Processed 6700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 897, 1169]) and index:  6707
+Skipped frame of shape torch.Size([1, 1, 3, 1, 976, 1344]) and index:  6799
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1000, 1600]) and index:  6833
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  6884
+Processed 6900 images
+Processed 7000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1352, 2108]) and index:  7080
+Processed 7100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1669, 893]) and index:  7100
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  7151
+Processed 7200 images
+Processed 7300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  7338
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  7343
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1193, 1590]) and index:  7392
+Processed 7400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1792]) and index:  7431
+Processed 7500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  7523
+Processed 7600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2142, 2856]) and index:  7650
+Processed 7700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  7701
+Processed 7800 images
+Processed 7900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 853, 1280]) and index:  7940
+Processed 8000 images
+Processed 8100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  8137
+Skipped frame of shape torch.Size([1, 1, 3, 1, 975, 1251]) and index:  8179
+Processed 8200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  8243
+Processed 8300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1203, 1218]) and index:  8302
+Processed 8400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2229, 2466]) and index:  8401
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1013, 1973]) and index:  8454
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1100, 984]) and index:  8499
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  8540
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1000]) and index:  8585
+Processed 8600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1350, 900]) and index:  8618
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2126, 1938]) and index:  8674
+Processed 8700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2304]) and index:  8714
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  8721
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2106, 2550]) and index:  8741
+Processed 8800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  8836
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  8845
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1234, 1216]) and index:  8851
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1536]) and index:  8862
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1104, 1489]) and index:  8898
+Processed 8900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  8970
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  8978
+Processed 9000 images
+Processed 9100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 950, 1267]) and index:  9138
+Processed 9200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  9252
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1168, 1760]) and index:  9266
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  9275
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  9277
+Processed 9300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1620, 2127]) and index:  9399
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1038, 1000]) and index:  9406
+Skipped frame of shape torch.Size([1, 1, 3, 1, 899, 1164]) and index:  9437
+Processed 9500 images
+Processed 9600 images
+Processed 9700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  9780
+Processed 9800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  9807
+Processed 9900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  9924
+Processed 10000 images
+Processed 10100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1764, 1308]) and index:  10112
+Processed 10200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1232, 2144]) and index:  10257
+Processed 10300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1231, 1845]) and index:  10334
+Processed 10400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  10452
+Processed 10500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 970, 2041]) and index:  10556
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  10564
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  10583
+Processed 10600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1546, 1348]) and index:  10604
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  10621
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1306, 900]) and index:  10632
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  10645
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  10676
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1680, 2240]) and index:  10686
+Processed 10700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1413, 1272]) and index:  10735
+Processed 10800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1489, 1005]) and index:  10818
+Processed 10900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1517, 860]) and index:  10926
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1536]) and index:  10989
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1492, 816]) and index:  10992
+Processed 11000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1648, 2464]) and index:  11023
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  11077
+Processed 11100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1440, 2160]) and index:  11111
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  11112
+Processed 11200 images
+Processed 11300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1360, 2048]) and index:  11323
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1232, 1632]) and index:  11386
+Processed 11400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  11412
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1414, 1102]) and index:  11459
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  11479
+Processed 11500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3072, 2304]) and index:  11557
+Processed 11600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 2560]) and index:  11680
+Processed 11700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1111, 950]) and index:  11765
+Skipped frame of shape torch.Size([1, 1, 3, 1, 848, 1441]) and index:  11785
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  11793
+Processed 11800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 945, 1260]) and index:  11851
+Processed 11900 images
+Processed 12000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2592, 1944]) and index:  12031
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2816, 2112]) and index:  12066
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  12071
+Processed 12100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  12104
+Processed 12200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  12212
+Skipped frame of shape torch.Size([1, 1, 3, 1, 864, 1203]) and index:  12277
+Processed 12300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  12364
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1222, 1560]) and index:  12382
+Processed 12400 images
+Processed 12500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1921, 1257]) and index:  12527
+Processed 12600 images
+Processed 12700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  12758
+Processed 12800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1242, 1242]) and index:  12813
+Processed 12900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  12922
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  12945
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1303, 1600]) and index:  12964
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1071, 1600]) and index:  12991
+Processed 13000 images
+Processed 13100 images
+Processed 13200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1958, 1921]) and index:  13291
+Processed 13300 images
+Processed 13400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1500, 1000]) and index:  13436
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  13446
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1700, 2248]) and index:  13486
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2272, 1704]) and index:  13491
+Processed 13500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  13532
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1133, 1700]) and index:  13562
+Processed 13600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1560, 1360]) and index:  13684
+Processed 13700 images
+Processed 13800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1800]) and index:  13800
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  13841
+Processed 13900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2648, 1910]) and index:  13904
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  13991
+Processed 14000 images
+Processed 14100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2496, 1664]) and index:  14175
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  14176
+Processed 14200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1503, 1250]) and index:  14261
+Processed 14300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1621, 1301]) and index:  14347
+Processed 14400 images
+Processed 14500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1181, 1772]) and index:  14519
+Processed 14600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1062]) and index:  14660
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1425, 1425]) and index:  14684
+Processed 14700 images
+Processed 14800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  14820
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1369, 1545]) and index:  14860
+Processed 14900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  14950
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1224, 918]) and index:  14989
+Processed 15000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2172, 2172]) and index:  15020
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2276, 3153]) and index:  15065
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1500, 2044]) and index:  15074
+Processed 15100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 1536]) and index:  15127
+Processed 15200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 924, 1908]) and index:  15205
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1940, 1660]) and index:  15245
+Processed 15300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  15361
+Processed 15400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1407, 1095]) and index:  15452
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  15464
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  15485
+Processed 15500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  15569
+Skipped frame of shape torch.Size([1, 1, 3, 1, 839, 1250]) and index:  15578
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  15583
+Processed 15600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  15647
+Processed 15700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 872, 1152]) and index:  15713
+Skipped frame of shape torch.Size([1, 1, 3, 1, 861, 1280]) and index:  15753
+Processed 15800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  15880
+Processed 15900 images
+Processed 16000 images
+Processed 16100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  16140
+Processed 16200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 2560]) and index:  16256
+Processed 16300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1044, 1542]) and index:  16336
+Processed 16400 images
+Processed 16500 images
+Processed 16600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  16673
+Processed 16700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  16788
+Processed 16800 images
+Processed 16900 images
+Processed 17000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  17020
+Processed 17100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 876, 1195]) and index:  17148
+Skipped frame of shape torch.Size([1, 1, 3, 1, 995, 1500]) and index:  17155
+Processed 17200 images
+Processed 17300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  17317
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1680, 2240]) and index:  17340
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1936, 2896]) and index:  17390
+Processed 17400 images
+Processed 17500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 983, 1135]) and index:  17506
+Processed 17600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1232, 1632]) and index:  17682
+Processed 17700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 819, 1229]) and index:  17782
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2147, 2361]) and index:  17783
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  17788
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 1190]) and index:  17799
+Processed 17900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1613, 2494]) and index:  17913
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  17984
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  17996
+Processed 18000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  18032
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 2150]) and index:  18093
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  18095
+Processed 18100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1367, 2016]) and index:  18167
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  18191
+Processed 18200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 900]) and index:  18236
+Processed 18300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1260, 945]) and index:  18315
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  18330
+Processed 18400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 879, 1500]) and index:  18480
+Processed 18500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  18577
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  18591
+Processed 18600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1065, 1600]) and index:  18658
+Processed 18700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2112, 2816]) and index:  18701
+Skipped frame of shape torch.Size([1, 1, 3, 1, 978, 1500]) and index:  18762
+Processed 18800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2176, 3264]) and index:  18804
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  18810
+Processed 18900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3008, 2000]) and index:  18924
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  18927
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2376, 3168]) and index:  18953
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1899, 1356]) and index:  18967
+Skipped frame of shape torch.Size([1, 1, 3, 1, 800, 1800]) and index:  18979
+Processed 19000 images
+Processed 19100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  19114
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  19184
+Processed 19200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2100, 1500]) and index:  19267
+Processed 19300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1063, 1595]) and index:  19356
+Skipped frame of shape torch.Size([1, 1, 3, 1, 917, 1222]) and index:  19381
+Processed 19400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  19450
+Processed 19500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  19508
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  19563
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2896]) and index:  19566
+Processed 19600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  19692
+Processed 19700 images
+Processed 19800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2283, 1526]) and index:  19805
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1848, 796]) and index:  19833
+Processed 19900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 887, 1193]) and index:  19941
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1152, 1536]) and index:  19987
+Processed 20000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2244, 2805]) and index:  20001
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  20025
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1199, 1200]) and index:  20066
+Processed 20100 images
+Processed 20200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1712, 2288]) and index:  20277
+Processed 20300 images
+Processed 20400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1800, 2800]) and index:  20482
+Processed 20500 images
+Processed 20600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1600]) and index:  20613
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1932, 2576]) and index:  20649
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  20664
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1305, 850]) and index:  20684
+Processed 20700 images
+Processed 20800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1288, 1936]) and index:  20892
+Processed 20900 images
+Processed 21000 images
+Processed 21100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 1536]) and index:  21128
+Processed 21200 images
+Processed 21300 images
+Processed 21400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  21415
+Processed 21500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 859, 1200]) and index:  21547
+Skipped frame of shape torch.Size([1, 1, 3, 1, 848, 1280]) and index:  21590
+Processed 21600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  21663
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  21694
+Processed 21700 images
+Processed 21800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1060, 1936]) and index:  21825
+Processed 21900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1296, 1944]) and index:  21900
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 900]) and index:  21955
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2478, 1986]) and index:  21963
+Processed 22000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  22044
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  22054
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1793, 2700]) and index:  22068
+Processed 22100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1206, 1577]) and index:  22184
+Processed 22200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  22259
+Processed 22300 images
+Processed 22400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  22426
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  22479
+Processed 22500 images
+Processed 22600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 1536]) and index:  22604
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1754, 1240]) and index:  22607
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1600]) and index:  22691
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1759, 1855]) and index:  22699
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  22753
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  22768
+Processed 22800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1479, 2200]) and index:  22810
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1672, 1889]) and index:  22836
+Processed 22900 images
+Processed 23000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1092, 1162]) and index:  23045
+Skipped frame of shape torch.Size([1, 1, 3, 1, 480, 2686]) and index:  23084
+Processed 23100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1401, 1868]) and index:  23110
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  23179
+Processed 23200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 2560]) and index:  23251
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1488]) and index:  23286
+Processed 23300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 3072]) and index:  23324
+Processed 23400 images
+Processed 23500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 1354]) and index:  23504
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1296, 1141]) and index:  23530
+Skipped frame of shape torch.Size([1, 1, 3, 1, 795, 1275]) and index:  23596
+Processed 23600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1159, 1200]) and index:  23627
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1426, 1010]) and index:  23637
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2418, 2478]) and index:  23662
+Processed 23700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1729]) and index:  23727
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 900]) and index:  23775
+Processed 23800 images
+Processed 23900 images
+Processed 24000 images
+Processed 24100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  24136
+Processed 24200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1578, 2371]) and index:  24239
+Processed 24300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  24331
+Processed 24400 images
+Processed 24500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1505, 2007]) and index:  24545
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  24571
+Processed 24600 images
+Processed 24700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1143, 1600]) and index:  24747
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1146, 1431]) and index:  24778
+Processed 24800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  24876
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1536]) and index:  24880
+Processed 24900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  24926
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1429, 869]) and index:  24938
+Processed 25000 images
+Processed 25100 images
+Processed 25200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  25226
+Processed 25300 images
+Processed 25400 images
+Processed 25500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1012, 1524]) and index:  25529
+Processed 25600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  25602
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1039, 1584]) and index:  25658
+Processed 25700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1279, 1100]) and index:  25702
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2560, 1920]) and index:  25712
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1496, 2256]) and index:  25725
+Processed 25800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  25882
+Processed 25900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1870, 2830]) and index:  25923
+Processed 26000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1700, 2148]) and index:  26050
+Processed 26100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  26142
+Processed 26200 images
+Processed 26300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  26341
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2560, 1920]) and index:  26365
+Processed 26400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  26434
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  26451
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1600]) and index:  26493
+Processed 26500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2556, 2148]) and index:  26506
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  26531
+Processed 26600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  26666
+Processed 26700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  26706
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1818, 2896]) and index:  26794
+Processed 26800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1936, 2082]) and index:  26819
+Processed 26900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  26962
+Processed 27000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 3008]) and index:  27078
+Processed 27100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1407, 1181]) and index:  27168
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1064, 1600]) and index:  27171
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1800, 2400]) and index:  27188
+Processed 27200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1102, 1219]) and index:  27209
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  27295
+Processed 27300 images
+Processed 27400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  27422
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  27463
+Processed 27500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  27504
+Processed 27600 images
+Processed 27700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2886, 1757]) and index:  27791
+Processed 27800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  27876
+Skipped frame of shape torch.Size([1, 1, 3, 1, 959, 1391]) and index:  27881
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1680, 1672]) and index:  27891
+Processed 27900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  27986
+Processed 28000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2700, 1800]) and index:  28014
+Processed 28100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1444]) and index:  28167
+Processed 28200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1932, 2188]) and index:  28265
+Skipped frame of shape torch.Size([1, 1, 3, 1, 944, 1335]) and index:  28279
+Processed 28300 images
+Processed 28400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1186, 1600]) and index:  28432
+Processed 28500 images
+Processed 28600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  28694
+Processed 28700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3072, 2304]) and index:  28756
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  28797
+Processed 28800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1150, 900]) and index:  28835
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  28852
+Processed 28900 images
+Processed 29000 images
+Processed 29100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2142, 2856]) and index:  29167
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1296]) and index:  29180
+Processed 29200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1223, 1379]) and index:  29219
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1143, 1600]) and index:  29255
+Processed 29300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  29315
+Processed 29400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  29440
+Processed 29500 images
+Processed 29600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  29666
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1457, 2231]) and index:  29697
+Processed 29700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1187, 1187]) and index:  29710
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2660, 2020]) and index:  29764
+Processed 29800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  29821
+Processed 29900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  29930
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1479, 1512]) and index:  29940
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  29976
+Processed 30000 images
+Processed 30100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1244, 829]) and index:  30112
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1760, 1168]) and index:  30116
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  30156
+Processed 30200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3013, 1920]) and index:  30226
+Processed 30300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  30388
+Processed 30400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 880, 1280]) and index:  30413
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  30472
+Processed 30500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 985, 1314]) and index:  30526
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  30528
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  30596
+Processed 30600 images
+Processed 30700 images
+Processed 30800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 876, 1690]) and index:  30844
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1748, 1078]) and index:  30870
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1082, 1655]) and index:  30898
+Processed 30900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1800, 1252]) and index:  30981
+Processed 31000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1776, 1176]) and index:  31026
+Processed 31100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 801, 1266]) and index:  31194
+Processed 31200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31270
+Processed 31300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31314
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3072, 2048]) and index:  31335
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31358
+Processed 31400 images
+Processed 31500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 2236]) and index:  31539
+Processed 31600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31669
+Processed 31700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31749
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1073, 1088]) and index:  31759
+Processed 31800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1011, 1555]) and index:  31839
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1024]) and index:  31859
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  31884
+Processed 31900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1019, 1530]) and index:  31930
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  31947
+Processed 32000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1258, 800]) and index:  32007
+Skipped frame of shape torch.Size([1, 1, 3, 1, 767, 1380]) and index:  32081
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1992, 1986]) and index:  32087
+Processed 32100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  32177
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  32189
+Processed 32200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  32279
+Processed 32300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 808, 1688]) and index:  32361
+Processed 32400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  32433
+Processed 32500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1066, 1600]) and index:  32515
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1301, 1038]) and index:  32579
+Processed 32600 images
+Processed 32700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  32709
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  32782
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1305, 1317]) and index:  32799
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2186, 2985]) and index:  32846
+Processed 32900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1024]) and index:  32906
+Skipped frame of shape torch.Size([1, 1, 3, 1, 941, 1345]) and index:  32951
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1142, 1477]) and index:  32986
+Processed 33000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1326, 807]) and index:  33036
+Processed 33100 images
+Processed 33200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1232, 1267]) and index:  33273
+Processed 33300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1116, 991]) and index:  33325
+Processed 33400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  33403
+Processed 33500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1280]) and index:  33517
+Processed 33600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1312, 1792]) and index:  33637
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1296, 1416]) and index:  33663
+Processed 33700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 791, 1278]) and index:  33709
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  33719
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  33738
+Processed 33800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 926, 1547]) and index:  33875
+Processed 33900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  33960
+Processed 34000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 1536]) and index:  34028
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 2370]) and index:  34044
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1098, 1732]) and index:  34050
+Processed 34100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2112, 2816]) and index:  34113
+Processed 34200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 1360]) and index:  34247
+Processed 34300 images
+Processed 34400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1458, 1994]) and index:  34407
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  34408
+Processed 34500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2238, 2184]) and index:  34595
+Processed 34600 images
+Processed 34700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  34723
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  34761
+Processed 34800 images
+Processed 34900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  34973
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  34993
+Processed 35000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2072, 1554]) and index:  35046
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1252, 962]) and index:  35088
+Processed 35100 images
+Processed 35200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 975, 1197]) and index:  35290
+Processed 35300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1365, 1024]) and index:  35360
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  35384
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2316, 2922]) and index:  35390
+Processed 35400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 897, 1200]) and index:  35466
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  35490
+Processed 35500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1705, 1803]) and index:  35563
+Processed 35600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2155, 2303]) and index:  35635
+Processed 35700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  35779
+Processed 35800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 844, 1280]) and index:  35862
+Processed 35900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1536]) and index:  35945
+Processed 36000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1029, 1545]) and index:  36040
+Processed 36100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 856, 1280]) and index:  36101
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1852, 1532]) and index:  36135
+Processed 36200 images
+Processed 36300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1066, 1600]) and index:  36316
+Processed 36400 images
+Processed 36500 images
+Processed 36600 images
+Processed 36700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  36712
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1165, 963]) and index:  36737
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1000, 1503]) and index:  36763
+Processed 36800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  36812
+Processed 36900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1425, 1200]) and index:  36934
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 3008]) and index:  36949
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2448, 3264]) and index:  36950
+Processed 37000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1404, 1923]) and index:  37017
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1125, 1500]) and index:  37042
+Skipped frame of shape torch.Size([1, 1, 3, 1, 906, 1209]) and index:  37047
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1067, 1600]) and index:  37053
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1096, 1280]) and index:  37067
+Processed 37100 images
+Processed 37200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 886, 1181]) and index:  37203
+Processed 37300 images
+Processed 37400 images
+Processed 37500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2048, 3072]) and index:  37541
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  37593
+Processed 37600 images
+Processed 37700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1800, 1350]) and index:  37711
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  37794
+Processed 37800 images
+Processed 37900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2008, 1417]) and index:  37967
+Processed 38000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1078, 1600]) and index:  38067
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1496, 2256]) and index:  38089
+Processed 38100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  38172
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1916, 2558]) and index:  38177
+Processed 38200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1176, 1382]) and index:  38254
+Processed 38300 images
+Processed 38400 images
+Processed 38500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  38528
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1167]) and index:  38535
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  38557
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1633, 1484]) and index:  38558
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1224, 918]) and index:  38582
+Processed 38600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1712, 2288]) and index:  38612
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  38690
+Processed 38700 images
+Processed 38800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1535, 2036]) and index:  38890
+Processed 38900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2592, 3888]) and index:  38950
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  38978
+Processed 39000 images
+Processed 39100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  39145
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  39175
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  39191
+Processed 39200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  39250
+Processed 39300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 896]) and index:  39311
+Processed 39400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1349, 919]) and index:  39440
+Processed 39500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 800, 3276]) and index:  39502
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  39512
+Processed 39600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1122, 1280]) and index:  39645
+Processed 39700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  39758
+Processed 39800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1523, 1200]) and index:  39849
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2736, 3648]) and index:  39877
+Processed 39900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3008, 2000]) and index:  39935
+Processed 40000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  40053
+Processed 40100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  40190
+Processed 40200 images
+Processed 40300 images
+Processed 40400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1067]) and index:  40430
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1224, 1632]) and index:  40442
+Processed 40500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1380, 1080]) and index:  40594
+Processed 40600 images
+Processed 40700 images
+Processed 40800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  40823
+Processed 40900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1474, 1755]) and index:  40903
+Skipped frame of shape torch.Size([1, 1, 3, 1, 984, 1296]) and index:  40952
+Processed 41000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1055, 1570]) and index:  41064
+Processed 41100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 972, 1296]) and index:  41136
+Processed 41200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 938, 1250]) and index:  41259
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  41267
+Processed 41300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  41344
+Processed 41400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  41475
+Processed 41500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1600]) and index:  41576
+Processed 41600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2112, 2816]) and index:  41632
+Processed 41700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1600]) and index:  41702
+Processed 41800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  41843
+Processed 41900 images
+Processed 42000 images
+Processed 42100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 3008]) and index:  42117
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  42121
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2289, 1232]) and index:  42162
+Processed 42200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1669, 1443]) and index:  42220
+Processed 42300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  42351
+Processed 42400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1570, 900]) and index:  42454
+Processed 42500 images
+Processed 42600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1693, 1343]) and index:  42690
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1280, 960]) and index:  42696
+Processed 42700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1315, 1600]) and index:  42741
+Processed 42800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  42885
+Processed 42900 images
+Processed 43000 images
+Processed 43100 images
+Processed 43200 images
+Processed 43300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 3072, 2304]) and index:  43344
+Processed 43400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1368, 859]) and index:  43473
+Processed 43500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  43507
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1488, 1984]) and index:  43534
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  43556
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  43586
+Processed 43600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  43612
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1467, 1968]) and index:  43626
+Processed 43700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  43769
+Processed 43800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1371, 948]) and index:  43833
+Processed 43900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  43956
+Processed 44000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1023, 1731]) and index:  44015
+Skipped frame of shape torch.Size([1, 1, 3, 1, 750, 2852]) and index:  44090
+Processed 44100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  44174
+Processed 44200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2780, 1396]) and index:  44211
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1277, 855]) and index:  44264
+Processed 44300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  44352
+Processed 44400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  44402
+Processed 44500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1030, 1478]) and index:  44522
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1101, 1290]) and index:  44564
+Processed 44600 images
+Processed 44700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  44721
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1464, 1464]) and index:  44788
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1856, 1746]) and index:  44792
+Processed 44800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2272, 1704]) and index:  44838
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1042, 1551]) and index:  44858
+Processed 44900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  44945
+Processed 45000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  45067
+Processed 45100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 968, 1474]) and index:  45110
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1728, 2304]) and index:  45137
+Skipped frame of shape torch.Size([1, 1, 3, 1, 989, 1570]) and index:  45171
+Processed 45200 images
+Processed 45300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1605, 1855]) and index:  45367
+Processed 45400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1239, 2000]) and index:  45459
+Processed 45500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 477, 2145]) and index:  45574
+Processed 45600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1496, 2256]) and index:  45623
+Processed 45700 images
+Processed 45800 images
+Processed 45900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  45926
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  45929
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1784, 1178]) and index:  45968
+Skipped frame of shape torch.Size([1, 1, 3, 1, 911, 1181]) and index:  45983
+Processed 46000 images
+Processed 46100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  46192
+Processed 46200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  46230
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1120, 1417]) and index:  46234
+Processed 46300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  46396
+Processed 46400 images
+Processed 46500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1047, 1280]) and index:  46538
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1336, 1192]) and index:  46567
+Processed 46600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1024, 1024]) and index:  46674
+Processed 46700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2304, 3072]) and index:  46727
+Processed 46800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1350, 1800]) and index:  46866
+Processed 46900 images
+Processed 47000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  47029
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1009, 1966]) and index:  47031
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2321, 2516]) and index:  47047
+Processed 47100 images
+Processed 47200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1600]) and index:  47234
+Processed 47300 images
+Processed 47400 images
+Processed 47500 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1712, 2288]) and index:  47556
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  47588
+Processed 47600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1329, 2100]) and index:  47644
+Processed 47700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2000, 3008]) and index:  47729
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  47773
+Processed 47800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1201, 956]) and index:  47800
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2100, 2400]) and index:  47812
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1950, 2600]) and index:  47817
+Skipped frame of shape torch.Size([1, 1, 3, 1, 960, 1280]) and index:  47830
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  47868
+Processed 47900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1795, 2700]) and index:  47929
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1536, 2048]) and index:  47945
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1600, 1200]) and index:  47952
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  47965
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1644, 2464]) and index:  47975
+Processed 48000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1288, 1514]) and index:  48075
+Processed 48100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1152, 1536]) and index:  48107
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1090, 1000]) and index:  48119
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  48120
+Processed 48200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1288, 1936]) and index:  48213
+Processed 48300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1397, 1214]) and index:  48309
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1242, 829]) and index:  48360
+Processed 48400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 1440]) and index:  48402
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2097, 3000]) and index:  48411
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  48436
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1064, 1600]) and index:  48492
+Processed 48500 images
+Processed 48600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1152, 1536]) and index:  48633
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  48668
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1183, 1600]) and index:  48684
+Processed 48700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  48702
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1211, 1697]) and index:  48764
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1425, 950]) and index:  48777
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1574, 2061]) and index:  48797
+Processed 48800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1068, 1600]) and index:  48843
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  48880
+Skipped frame of shape torch.Size([1, 1, 3, 1, 976, 1296]) and index:  48890
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1704, 2272]) and index:  48892
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1960, 3008]) and index:  48896
+Processed 48900 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1600]) and index:  48962
+Skipped frame of shape torch.Size([1, 1, 3, 1, 2433, 1041]) and index:  48968
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1445, 1785]) and index:  48998
+Processed 49000 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 904, 1406]) and index:  49006
+Processed 49100 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1944, 2592]) and index:  49101
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1188]) and index:  49167
+Processed 49200 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1135, 1420]) and index:  49227
+Processed 49300 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 835, 1533]) and index:  49371
+Skipped frame of shape torch.Size([1, 1, 3, 1, 900, 1200]) and index:  49388
+Processed 49400 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 853, 1280]) and index:  49494
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 2560]) and index:  49499
+Processed 49600 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1200, 1800]) and index:  49618
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1014, 1280]) and index:  49636
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1920, 2560]) and index:  49684
+Processed 49700 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 1260, 945]) and index:  49728
+Processed 49800 images
+Skipped frame of shape torch.Size([1, 1, 3, 1, 553, 3500]) and index:  49846
+Processed 49900 images
+Processed 50000 images
+Successfully processed all remaining images!
+Problematic frames: []
