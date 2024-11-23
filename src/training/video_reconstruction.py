@@ -1,14 +1,9 @@
-import os
-os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
-
 try:
     from datasets import load_dataset  # type: ignore
 except Exception:
-    from datasets import load_dataset  # type: ignore
+    from datasets import load_dataset  # type: ignore # noqa
 
 import typing
-from typing import Dict, TypedDict, cast
-from src.utils.tokenizer import CharTokenizer, GPT2Tokenizer, Encoding
 
 import matplotlib.pyplot as plt
 import torch
@@ -19,16 +14,6 @@ from torch.utils.data import DataLoader, random_split
 from src.model.ideal_translator import (IDEALTranslator, ITranslator,
                                         StandardTransformer)
 from src.data.magvit_tokens_data import get_magvit_v2_dataset
-
-
-class TranslationPair(TypedDict):
-    en: str
-    fr: str
-
-
-class DataItem(TypedDict):
-    id: str
-    translation: TranslationPair
 
 
 vocab_size = 2**18
@@ -269,9 +254,8 @@ if __name__ == "__main__":
 
         if min_val_loss < best_val_loss:
             best_val_loss = min_val_loss
-            checkpoint = {  # type: ignore
-                "epoch": epoch,
-                "char_to_idx": char_to_idx,
+            checkpoint: dict[str, typing.Any] = {  # type: ignore
+                "epoch": epoch
             }
             for name in models:
                 checkpoint.update(  # type: ignore

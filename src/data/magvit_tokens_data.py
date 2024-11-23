@@ -2,6 +2,8 @@ import torch
 from torch.utils.data import Dataset
 from io import BytesIO
 from zipfile import ZipFile
+import shutil
+import os
 
 
 def concatenate_and_maxpad(
@@ -36,6 +38,10 @@ class MagvitV2TokenDataset(Dataset[tuple[torch.Tensor, torch.Tensor]]):
 
 
 def get_magvit_v2_dataset(pad_token_id: int) -> MagvitV2TokenDataset:
+    if not os.path.exists('src/data/image_tokens.zip'):
+        shutil.make_archive('src/data/image_tokens',
+                            'zip',
+                            'src/data/image_tokens/')
     with ZipFile('src/data/image_tokens.zip', 'r') as zipf:
         # List all files
         files = zipf.namelist()
