@@ -41,6 +41,7 @@ class IDEALTranslator(ITranslator, nn.Module):
         num_text_encoder_layers: int = 6,
         num_idea_encoder_layers: int = 6,
         num_decoder_layers: int = 6,
+        num_heads: int = 6,
         aux_loss_setting: AuxLossSetting = AuxLossSetting.FULL_AUX_LOSS,
         skip_decoder: bool = False
     ):
@@ -66,7 +67,7 @@ class IDEALTranslator(ITranslator, nn.Module):
         self.text_encoder = nn.TransformerEncoder(
             nn.TransformerEncoderLayer(
                 d_model=hidden_size,
-                nhead=8,
+                nhead=num_heads,
                 dim_feedforward=dim_feedforward,
                 batch_first=True,
             ),
@@ -79,7 +80,7 @@ class IDEALTranslator(ITranslator, nn.Module):
             self.idea_encoder = nn.TransformerEncoder(
                 nn.TransformerEncoderLayer(
                     d_model=hidden_size,
-                    nhead=8,
+                    nhead=num_heads,
                     dim_feedforward=dim_feedforward,
                     batch_first=True,
                 ),
@@ -109,7 +110,7 @@ class IDEALTranslator(ITranslator, nn.Module):
         self.decoder = nn.TransformerDecoder(
             nn.TransformerDecoderLayer(
                 d_model=hidden_size,
-                nhead=8,
+                nhead=num_heads,
                 dim_feedforward=dim_feedforward,
                 batch_first=True,
             ),
