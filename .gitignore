@@ -10,21 +10,21 @@ __pycache__/
 # Tokens
 src/data/image_tokens.zip
 
-src/data/image_tokens/tests/image_tokens_0_1009.pt
-src/data/image_tokens/tests/image_tokens_0_10124.pt
-src/data/image_tokens/tests/image_tokens_0_11145.pt
-src/data/image_tokens/tests/image_tokens_0_12160.pt
-src/data/image_tokens/tests/image_tokens_0_13171.pt
-src/data/image_tokens/tests/image_tokens_0_14185.pt
-src/data/image_tokens/tests/image_tokens_0_15198.pt
-src/data/image_tokens/tests/image_tokens_0_16212.pt
-src/data/image_tokens/tests/image_tokens_0_17219.pt
-src/data/image_tokens/tests/image_tokens_0_18237.pt
-src/data/image_tokens/tests/image_tokens_0_19254.pt
-src/data/image_tokens/tests/image_tokens_0_2017.pt
-src/data/image_tokens/tests/image_tokens_0_20269.pt
-src/data/image_tokens/tests/image_tokens_0_21277.pt
-src/data/image_tokens/tests/image_tokens_0_22291.pt
+# src/data/image_tokens/tests/image_tokens_0_1009.pt
+# src/data/image_tokens/tests/image_tokens_0_10124.pt
+# src/data/image_tokens/tests/image_tokens_0_11145.pt
+# src/data/image_tokens/tests/image_tokens_0_12160.pt
+# src/data/image_tokens/tests/image_tokens_0_13171.pt
+# src/data/image_tokens/tests/image_tokens_0_14185.pt
+# src/data/image_tokens/tests/image_tokens_0_15198.pt
+# src/data/image_tokens/tests/image_tokens_0_16212.pt
+# src/data/image_tokens/tests/image_tokens_0_17219.pt
+# src/data/image_tokens/tests/image_tokens_0_18237.pt
+# src/data/image_tokens/tests/image_tokens_0_19254.pt
+# src/data/image_tokens/tests/image_tokens_0_2017.pt
+# src/data/image_tokens/tests/image_tokens_0_20269.pt
+# src/data/image_tokens/tests/image_tokens_0_21277.pt
+# src/data/image_tokens/tests/image_tokens_0_22291.pt
 # src/data/image_tokens/tests/image_tokens_0_23307.pt
 # src/data/image_tokens/tests/image_tokens_0_24318.pt
 # src/data/image_tokens/tests/image_tokens_0_25328.pt
