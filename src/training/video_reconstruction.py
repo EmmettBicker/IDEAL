@@ -1,3 +1,6 @@
+import os
+os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
+
 try:
     from datasets import load_dataset  # type: ignore
 except Exception:
@@ -11,13 +14,13 @@ import torch.nn.functional as F
 from torch.optim import Adam, Optimizer
 from torch.utils.data import DataLoader, random_split
 
-from src.model.ideal_translator import (IDEALTranslator, ITranslator,
-                                        StandardTransformer)
+from src.model.ideal_translator import (IDEALTranslator, ITranslator)
 from src.data.magvit_tokens_data import get_magvit_v2_dataset
 
 
 vocab_size = 2**18
-dataset = get_magvit_v2_dataset(pad_token_id=vocab_size)
+pad_token_id = vocab_size-1
+dataset = get_magvit_v2_dataset(pad_token_id=pad_token_id)  # overlap
 total_size = len(dataset)
 train_size = int(0.9 * total_size)  # 90% for training
 test_size = total_size - train_size  # 10% for testing# Setup
@@ -96,9 +99,8 @@ def process_batch(model: ITranslator,
     source_tokens = tensor.to(device)
     target_tokens = tensor.to(device)
 
-    pad_token_id = 0
-    bos_token_id = 1
-    eos_token_id = 2
+    bos_token_id = 0
+    eos_token_id = 1
     bos = torch.tensor([[bos_token_id]] * target_tokens.size(0),
                        device=device)
     target_tokens = torch.cat((bos, target_tokens), dim=1)
@@ -124,18 +126,45 @@ def process_batch(model: ITranslator,
         source_tokens, padding_mask, target_tokens, tgt_padding_mask
     )
 
-    def to_binary(tensor: torch.Tensor) -> torch.Tensor:
-        num_bits = 18
+    def to_binary(tensor: torch.Tensor, num_bits: int = 18) -> torch.Tensor:
         tensor = tensor.to(torch.int32)
         binary = tensor.unsqueeze(-1).bitwise_and(
             2**torch.arange(num_bits, dtype=torch.int32).to(tensor.device)
-            ).float()
+            ).bool().float()
         return binary
 
-    loss = F.binary_cross_entropy(
-        output_logits.view(-1),  # Should be full binarization
-        to_binary(source_tokens).view(-1),
-        reduction="mean",
+    def masked_binary_cross_entropy(output_logits: torch.Tensor,
+                                    source_tokens: torch.Tensor,
+                                    pad_token: int,
+                                    num_bits: int = 18) -> torch.Tensor:
+        padding_mask = (source_tokens != pad_token).float()
+        target_binary = to_binary(source_tokens, num_bits)
+
+        expanded_mask = padding_mask.unsqueeze(-1).expand_as(target_binary)
+
+        # Flatten all tensors
+        output_flat = output_logits.reshape(-1)
+        target_flat = target_binary.reshape(-1)
+        mask_flat = expanded_mask.reshape(-1)
+
+        # Compute binary cross entropy with logits
+        elementwise_loss = F.binary_cross_entropy(
+            torch.sigmoid(output_flat),
+            target_flat,
+            reduction='none'
+        )
+
+        # Apply mask and compute mean over non-padding elements
+        masked_loss = elementwise_loss * mask_flat
+        num_valid = mask_flat.sum()
+
+        # Return average loss over non-padding elements
+        return masked_loss.sum() / (num_valid + 1e-6)
+
+    loss = masked_binary_cross_entropy(
+        output_logits,
+        source_tokens,
+        pad_token=pad_token_id
     )
 
     return loss, aux_loss
@@ -241,7 +270,7 @@ if __name__ == "__main__":
             train_losses[name].append(train_loss)
             val_losses[name].append(val_loss)
 
-            print(f"{name} Train Loss: {train_loss:.4f}, Val Loss: { val_loss:.4f}")
+            print(f"{name} Train Loss: {train_loss:.4f}, Val Loss: { val_loss:.4f}") # noqa
 
         # Plot current progress
         plot_losses()

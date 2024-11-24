@@ -6,7 +6,7 @@ from enum import Enum
 
 import torch
 import torch.nn as nn
-from vector_quantize_pytorch import LFQ  # type: ignore
+from src.utils.lfq import LFQ  # type: ignore
 from src.utils.tokenizer import ITokenizer
 
 
@@ -102,6 +102,7 @@ class IDEALTranslator(ITranslator, nn.Module):
             has_projections=True,
             num_codebooks=1,  # hyperparameter later
             entropy_loss_weight=0.01,  # hyperparameter later
+            frac_per_sample_entropy=0.1,
             commitment_loss_weight=1,  # hyperparameter later
             diversity_gamma=2.5,  # hyperparameter later
             soft_clamp_input_value=10,  # hyperparameter later
